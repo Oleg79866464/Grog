@@ -180,9 +180,47 @@
       </section>
 
       <section class="section">
-        <div class="callout">
-          Рекомендация для продажи: показывать этот отчёт вместе с release-status.html и коротким demo-скринкастом.
-          Так покупатель быстрее понимает ценность проекта.
+        <div class="card">
+          <h2>7. Финальный deployment runbook</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Шаг</th>
+                <th>Что сделать</th>
+                <th>Зачем</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Заполнить env: Supabase, домен, GA4, Yandex Metrica, NextAuth</td>
+                <td>Чтобы сайт и админка работали на production</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Импортировать SQL-схему и seed в Supabase</td>
+                <td>Чтобы были tools, clicks и analytics view</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Проверить `/`, `/tool/[slug]`, `/category/[slug]`, `/go/[id]`, `/admin`</td>
+                <td>Чтобы закрыть маршруты перед релизом</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Прогнать build/typecheck на реальной среде</td>
+                <td>Чтобы убрать TS и SSR-ошибки</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Подключить Search Console и Яндекс Вебмастер</td>
+                <td>Чтобы ускорить индексацию и контроль SEO</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="callout" style="margin-top: 18px;">
+            Быстрая загрузка, mobile-friendly layout и чистая SEO-структура — это основные факторы для роста конверсии и органики.
+          </div>
         </div>
       </section>
 
