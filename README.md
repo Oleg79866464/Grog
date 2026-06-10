@@ -1,5 +1,7 @@
 # Grog
 
+Premium AI tools directory for the Russian market with SEO-first architecture, affiliate redirect tracking, Supabase data layer, and Next.js 14 App Router.
+
 Premium AI tools directory for Russian-speaking marketers, SMM specialists, copywriters, bloggers, SEO specialists, product/growth teams and digital agencies.
 
 ## What this product is
