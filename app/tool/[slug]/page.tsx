@@ -75,9 +75,6 @@ export default async function ToolPage({ params }: { params: { slug: string } })
           <Link href={`/go/${tool.id}`} className="rounded-2xl bg-cyan-500 px-5 py-3 font-semibold text-slate-950">
             Перейти через трекинг
           </Link>
-          <Link href={tool.url} className="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 font-semibold text-white">
-            Официальный сайт
-          </Link>
         </div>
       </section>
 
