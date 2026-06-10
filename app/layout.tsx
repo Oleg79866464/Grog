@@ -2,6 +2,15 @@ import type { Metadata } from 'next';
 import { siteUrl } from '@/lib/config';
 import './globals.css';
 
+const securityHeaders = [
+  { key: 'X-DNS-Prefetch-Control', value: 'on' },
+  { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+  { key: 'X-Content-Type-Options', value: 'nosniff' },
+  { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+  { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+  { key: 'Content-Security-Policy', value: "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline'; connect-src 'self' https:; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https:;" },
+];
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -37,4 +46,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>{children}</body>
     </html>
   );
+}
+
+export function generateViewport() {
+  return {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    themeColor: '#0f172a',
+  };
 }

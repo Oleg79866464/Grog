@@ -3,6 +3,9 @@ import { getToolBySlug } from '@/lib/catalog';
 import { getToolsData } from '@/lib/data';
 import { createSupabaseServerClient } from '@/lib/supabase-server';
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 function getDeviceType(userAgent: string | null) {
   return userAgent?.includes('Mobile') ? 'mobile' : 'desktop';
 }
