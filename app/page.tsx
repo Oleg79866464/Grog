@@ -44,6 +44,16 @@ export default async function HomePage() {
     'Премиальная визуальная подача и структурированный SEO-контент помогают странице выглядеть дороже generic-листинга.',
   ];
 
+  const priceFilterOptions = ['Все цены', 'Бесплатно', 'Freemium', 'Платные'] as const;
+  const sortOptions = ['Сначала новые', 'По названию', 'По популярности'] as const;
+  const resourceOptions = [
+    ['Лучший видеохостинг', 'YouTube'],
+    ['Русский видеохостинг', 'Rutube'],
+    ['Социальная платформа', 'VK'],
+    ['Лучший форум', 'Product Hunt'],
+    ['Информационный портал', 'TechCrunch'],
+  ] as const;
+
   return (
     <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       <section className="card-premium card-premium-hover bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.12),transparent_38%),radial-gradient(circle_at_top_right,rgba(139,92,246,0.1),transparent_30%)] p-8 xl:p-12">
@@ -94,29 +104,46 @@ export default async function HomePage() {
         ))}
       </section>
 
-      <section className="mt-10 card-premium card-premium-hover bg-[linear-gradient(180deg,rgba(2,6,23,0.72),rgba(2,6,23,0.95))] p-6">
+      <section className="mt-10 rounded-[2rem] border border-white/10 bg-slate-950/70 p-6 shadow-premium">
+        <div className="grid gap-4 xl:grid-cols-[1.2fr_0.8fr] xl:items-end">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">Навигация и поиск</p>
+            <h2 className="mt-3 text-2xl font-bold text-white">Фильтры по цене, сортировка и поиск</h2>
+            <p className="mt-2 text-sm leading-6 text-slate-400">Можно фильтровать инструменты по типу цен, сортировать список и быстро искать по каталогу без потери премиального вида.</p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-3">
+            <select aria-label="Фильтр по цене" className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none">
+              {priceFilterOptions.map((option) => (
+                <option key={option} value={option.toLowerCase()}>{option}</option>
+              ))}
+            </select>
+            <select aria-label="Сортировка" className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none">
+              {sortOptions.map((option) => (
+                <option key={option} value={option.toLowerCase()}>{option}</option>
+              ))}
+            </select>
+            <a href="https://www.google.com/search?q=best+ai+tools+for+marketing" target="_blank" rel="noreferrer" className="rounded-2xl bg-cyan-500 px-4 py-3 text-center text-sm font-semibold text-slate-950">Поиск в интернете</a>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-10 rounded-[2rem] border border-white/10 bg-slate-950/70 p-6 shadow-premium">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">Partner banking offers</p>
-            <h2 className="mt-3 text-2xl font-bold text-white">Лучшие банковские продукты и финансовые партнёры</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">Trusted web resources</p>
+            <h2 className="mt-3 text-2xl font-bold text-white">Лучшие ресурсы и каналы по теме AI</h2>
           </div>
           <Link href="/sponsors" className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white">
             Все спонсоры
           </Link>
         </div>
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          {[
-            ['Партнёрский счёт', 'Нативное предложение для финансовых сервисов и предпринимателей.'],
-            ['Карта / кэшбэк', 'Пакет для банковских продуктов с прозрачным RevShare.'],
-            ['B2B financial tools', 'Финансовые сервисы для digital-команд, агентств и фрилансеров.'],
-          ].map(([title, description]) => (
-            <article key={title} className="card-premium card-premium-hover p-5">
-              <p className="text-white font-semibold">{title}</p>
-              <p className="mt-2 text-sm leading-6 text-slate-400">{description}</p>
-              <Link href="/advertise" className="mt-4 inline-flex rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-slate-950">
-                Добавить продукт
-              </Link>
-            </article>
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+          {resourceOptions.map(([label, title]) => (
+            <a key={title} href={`https://${title.toLowerCase().replace(/\s+/g, '')}.com`} target="_blank" rel="noreferrer" className="card-premium card-premium-hover p-5">
+              <p className="text-xs uppercase tracking-[0.3em] text-slate-400">{label}</p>
+              <p className="mt-2 text-lg font-semibold text-white">{title}</p>
+              <p className="mt-3 text-sm leading-6 text-slate-400">Заполнитель для дальнейшей ручной подстановки партнёрских ссылок из админки.</p>
+            </a>
           ))}
         </div>
       </section>
