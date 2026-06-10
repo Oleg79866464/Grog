@@ -68,3 +68,38 @@ export type Prompt = {
   created_at: string;
   updated_at: string;
 };
+
+export type MonetizationEntityType = 'sponsor' | 'advertiser' | 'bank_product';
+export type MonetizationPlacement = 'homepage_hero' | 'homepage_mid' | 'homepage_footer' | 'sidebar' | 'prompts' | 'tools';
+export type MonetizationStatus = 'draft' | 'active' | 'paused' | 'archived';
+
+export type MonetizationOffer = {
+  id: string;
+  slug: string;
+  entity_type: MonetizationEntityType;
+  title: string;
+  description: string;
+  short_description: string;
+  url: string;
+  affiliate_url: string;
+  cta_label: string;
+  category: string;
+  placement: MonetizationPlacement;
+  price_model: string;
+  pricing: string;
+  commission_rate: number;
+  featured: boolean;
+  verified: boolean;
+  status: MonetizationStatus;
+  tags: string[];
+  country: string;
+  device_type: string;
+  referer?: string;
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+  click_count: number;
+  impression_count: number;
+  created_at: string;
+  updated_at: string;
+};

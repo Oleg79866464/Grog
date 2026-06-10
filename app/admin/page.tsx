@@ -228,6 +228,9 @@ export default async function AdminPage() {
           <Link href="/admin/prompts" className="rounded-2xl border border-cyan-400/30 bg-cyan-400/10 px-4 py-3 text-sm font-semibold text-cyan-100">
             Prompts analytics
           </Link>
+          <Link href="/admin/monetization" className="rounded-2xl border border-emerald-400/30 bg-emerald-400/10 px-4 py-3 text-sm font-semibold text-emerald-100">
+            Monetization analytics
+          </Link>
         </div>
       </section>
 

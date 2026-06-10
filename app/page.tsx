@@ -79,6 +79,9 @@ export default async function HomePage() {
                 </div>
               ))}
             </div>
+            <div className="mt-5 rounded-3xl border border-cyan-400/20 bg-cyan-400/10 p-4 text-sm text-cyan-50">
+              Sponsored placement ready: нативный рекламный слот подключается через /sponsors и /advertise без потери SEO.
+            </div>
           </div>
         </div>
       </section>
@@ -89,6 +92,33 @@ export default async function HomePage() {
             {item}
           </div>
         ))}
+      </section>
+
+      <section className="mt-10 rounded-[1.75rem] border border-white/10 bg-slate-950/60 p-6 shadow-premium">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">Partner banking offers</p>
+            <h2 className="mt-3 text-2xl font-bold text-white">Лучшие банковские продукты и финансовые партнёры</h2>
+          </div>
+          <Link href="/sponsors" className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white">
+            Все спонсоры
+          </Link>
+        </div>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {[
+            ['Партнёрский счёт', 'Нативное предложение для финансовых сервисов и предпринимателей.'],
+            ['Карта / кэшбэк', 'Пакет для банковских продуктов с прозрачным RevShare.'],
+            ['B2B financial tools', 'Финансовые сервисы для digital-команд, агентств и фрилансеров.'],
+          ].map(([title, description]) => (
+            <article key={title} className="rounded-3xl border border-white/10 bg-white/5 p-5">
+              <p className="text-white font-semibold">{title}</p>
+              <p className="mt-2 text-sm leading-6 text-slate-400">{description}</p>
+              <Link href="/advertise" className="mt-4 inline-flex rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-slate-950">
+                Добавить продукт
+              </Link>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section id="assistant" className="mt-14 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
