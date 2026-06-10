@@ -5,6 +5,7 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { siteUrl } from '@/lib/config';
 import { getSiteControls } from '@/lib/site-controls';
 import { createSupabaseServerClient } from '@/lib/supabase-server';
+import { ManualAffiliateLinkForm } from '@/components/manual-affiliate-link-form';
 
 type AnalyticsRow = {
   id: string;
@@ -110,6 +111,12 @@ export default async function AdminPage() {
             Import flow
           </Link>
         </div>
+      </section>
+
+      <section className="mt-8 rounded-[1.75rem] border border-white/10 bg-slate-950/60 p-6">
+        <h2 className="text-2xl font-bold text-white">Manual affiliate link editor</h2>
+        <p className="mt-2 text-sm text-slate-400">Use this form to assign or replace affiliate URLs for a tool when needed.</p>
+        <ManualAffiliateLinkForm endpoint="/api/admin/tools" />
       </section>
     </main>
   );
