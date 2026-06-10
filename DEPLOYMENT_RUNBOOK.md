@@ -124,14 +124,64 @@ Run the following before release:
 - category pages
 - tool pages
 
-## 10) Vercel deployment
-1. Connect the repository.
-2. Add all environment variables.
-3. Set the production domain.
-4. Deploy.
-5. Confirm metadata uses the production domain.
-6. Confirm `/go/[id]` logs clicks.
-7. Confirm admin login works.
+## 10) Recommended hosting options for production
+
+### Option A — Cloudflare Pages + Cloudflare Workers style edge deployment
+Best when you want low cost, global CDN, and no card-dependent platform lock-in.
+
+- Pros:
+  - usually cheaper than traditional app platforms;
+  - strong CDN and caching;
+  - simple custom domain setup;
+  - good for SEO pages and static assets.
+- Cons:
+  - some Next.js features may need adaptation;
+  - server-side jobs and auth flows need validation.
+
+### Option B — VPS + Docker + reverse proxy
+Best when you want maximum control and predictable cost.
+
+- Good fits:
+  - Hetzner Cloud
+  - Contabo
+  - Selectel
+  - Timeweb Cloud
+  - Yandex Cloud VM
+- Typical stack:
+  - Ubuntu VM
+  - Docker / docker-compose
+  - Caddy or Nginx as reverse proxy
+  - managed domain + SSL via Let’s Encrypt
+- Pros:
+  - lowest operational lock-in;
+  - works well from Russia;
+  - easy to keep `/go/[id]`, auth, and Supabase integration stable.
+- Cons:
+  - you manage deploys and restarts yourself.
+
+### Option C — Managed app hosting with RU-friendly payment/access
+Use only if you confirm payment and signup availability from your region.
+
+- Evaluate:
+  - Railway
+  - Render
+  - Fly.io
+  - other VPS-backed app platforms
+
+### Recommendation
+For this project, the safest default is:
+- **Frontend app:** Cloudflare Pages or a small VPS with Docker;
+- **Database:** Supabase;
+- **Auth / analytics / redirects:** inside the Next.js app on the chosen host.
+
+## 11) Deployment order
+1. Prepare Supabase schema.
+2. Import and clean tool data.
+3. Configure environment variables.
+4. Validate typecheck and build.
+5. Deploy to the selected host.
+6. Verify redirects, SEO endpoints, and admin access.
+7. Submit sitemap in Search Console.
 
 ## 11) Search Console
 1. Add and verify the domain.
