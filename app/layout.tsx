@@ -56,6 +56,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               <a href="/admin" className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 hover:bg-white/10">Админка</a>
               <a href="/go/1" className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 hover:bg-white/10">Трекинг</a>
               <a href="/" className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 hover:bg-white/10">О проекте</a>
+              <a href="/buyer-report" className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 hover:bg-white/10">Отчёт покупателю</a>
+              <a href="/brand-contact-premium" className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 hover:bg-white/10">Контакты / портфолио</a>
             </div>
             <div className="flex flex-wrap gap-2 text-xs text-slate-500">
               <span>© 2026 Grog</span>

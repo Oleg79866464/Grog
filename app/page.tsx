@@ -121,8 +121,29 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section id="assistant" className="mt-14 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
-        <AiAssistant enabled />
+      <section id="author" className="mt-14 grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
+        <div className="card-premium card-premium-hover p-6">
+          <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">Автор / portfolio</p>
+          <div className="mt-6 grid gap-5 sm:grid-cols-[140px_1fr] sm:items-center">
+            <div className="flex h-36 w-36 items-center justify-center rounded-[1.5rem] border border-dashed border-white/15 bg-white/5 text-center text-xs text-slate-400">
+              Фото автора<br />300×300
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-white">[Ваше имя / псевдоним]</h2>
+              <p className="mt-3 text-sm leading-6 text-slate-300">
+                Автор и владелец проекта. Каталог собран как premium AI tools directory с фокусом на SEO, RevShare, sponsor-форматы и рост органического трафика.
+              </p>
+              <p className="mt-3 text-sm leading-6 text-slate-300">
+                Это поле удобно использовать как продающее портфолио для покупателя: фото, краткое описание и ссылки на ваши профили.
+              </p>
+            </div>
+          </div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            <a href="https://t.me/your_username" target="_blank" rel="noreferrer" className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Telegram — @your_username</a>
+            <a href="https://www.instagram.com/your_username/" target="_blank" rel="noreferrer" className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Instagram — @your_username</a>
+          </div>
+          <p className="mt-4 text-xs leading-5 text-slate-500">Ссылки-заглушки можно заменить вручную перед продажей или публикацией.</p>
+        </div>
         <div className="rounded-[2rem] border border-white/10 bg-slate-950/60 p-6 shadow-premium">
           <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">Site controls</p>
           <h2 className="mt-3 text-2xl font-bold text-white">Контроль режима защиты экрана</h2>
