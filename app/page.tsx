@@ -1,9 +1,12 @@
 import Link from 'next/link';
+import { AiAssistant } from '@/components/ai-assistant';
 import { categories } from '@/lib/catalog';
+import { getSiteControls } from '@/lib/site-controls';
 import { getToolsData } from '@/lib/data';
 
 export default async function HomePage() {
   const tools = await getToolsData();
+  const siteControls = getSiteControls();
   const featuredTools = tools.filter((tool) => tool.featured).slice(0, 6);
   const commercialCopy = [
     'Каталог заточен под RU-коммерческие запросы и отбор инструментов, которые реально конвертируют трафик в клики и выручку.',
@@ -47,6 +50,33 @@ export default async function HomePage() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="mt-10 grid gap-4 md:grid-cols-3">
+        {commercialCopy.map((item) => (
+          <div key={item} className="rounded-3xl border border-white/10 bg-white/5 p-6 text-slate-300">
+            {item}
+          </div>
+        ))}
+      </section>
+
+      <section className="mt-14 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+        <AiAssistant enabled />
+        <div className="rounded-[2rem] border border-white/10 bg-slate-950/60 p-6 shadow-premium">
+          <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">Site controls</p>
+          <h2 className="mt-3 text-2xl font-bold text-white">Контроль режима защиты экрана</h2>
+          <p className="mt-3 text-sm leading-6 text-slate-300">
+            Защита от скриншотов в вебе работает как best-effort слой: затемнение контента, маскирование чувствительных блоков,
+            блокировка select/copy и скрытие UI при попытке захвата. Это не может гарантированно остановить системный скриншот, но
+            заметно повышает порог копирования.
+          </p>
+          <div className="mt-6 rounded-3xl border border-white/10 bg-white/5 p-4 text-sm text-slate-300">
+            Статус анти-capture: {siteControls.antiCaptureEnabled ? 'Включён' : 'Выключен'}
+          </div>
+          <p className="mt-4 text-xs leading-5 text-slate-500">
+            Переключатель включается из админки; в текущей версии отображается как UI-policy, готовая к подключению к Supabase settings.
+          </p>
         </div>
       </section>
 

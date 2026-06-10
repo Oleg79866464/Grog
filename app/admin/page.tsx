@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { siteUrl } from '@/lib/config';
+import { getSiteControls } from '@/lib/site-controls';
 import { createSupabaseServerClient } from '@/lib/supabase-server';
 
 type AnalyticsRow = {
@@ -29,6 +30,7 @@ export default async function AdminPage() {
     redirect('/api/auth/signin');
   }
 
+  const siteControls = getSiteControls();
   const supabase = createSupabaseServerClient();
   const analyticsQuery = supabase ? await supabase.from('tools_analytics').select('*').order('tracked_clicks', { ascending: false }) : { data: null, error: null };
   const tools = (analyticsQuery.data ?? []) as AnalyticsRow[];
@@ -85,6 +87,18 @@ export default async function AdminPage() {
             <p>Mobile clicks: {deviceBreakdown.mobile}</p>
             <p>Desktop clicks: {deviceBreakdown.desktop}</p>
             <p>Admin URL: {siteUrl}/admin</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-8 rounded-[1.75rem] border border-white/10 bg-slate-950/60 p-6">
+        <h2 className="text-2xl font-bold text-white">Security controls</h2>
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-slate-300">
+            Anti-capture: {siteControls.antiCaptureEnabled ? 'enabled' : 'disabled'}
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-slate-300">
+            AI model: llama-3.3-70b-versatile
           </div>
         </div>
       </section>
