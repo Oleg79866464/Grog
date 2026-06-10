@@ -42,7 +42,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ru">
-      <body>{children}</body>
+      <body className="relative overflow-x-hidden">
+        <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.08),transparent_26%),radial-gradient(circle_at_80%_20%,rgba(139,92,246,0.08),transparent_24%)]" />
+        <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 bg-[linear-gradient(180deg,rgba(2,6,23,0)_0%,rgba(2,6,23,0.45)_100%)]" />
+        {children}
+      </body>
     </html>
   );
 }
