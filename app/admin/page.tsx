@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { siteUrl } from '@/lib/config';
+import { analyticsConfig, siteUrl } from '@/lib/config';
 import { getSiteControls } from '@/lib/site-controls';
 import { createSupabaseServerClient } from '@/lib/supabase-server';
 import { ManualAffiliateLinkForm } from '@/components/manual-affiliate-link-form';

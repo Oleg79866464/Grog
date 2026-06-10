@@ -13,3 +13,9 @@ export const siteUrl = (() => {
 })();
 
 export const siteLocale = 'ru-RU';
+
+export const analyticsConfig = {
+  googleAnalyticsId: process.env.NEXT_PUBLIC_GA4_ID?.trim() || '',
+  yandexMetricaId: process.env.NEXT_PUBLIC_YANDEX_METRICA_ID?.trim() || '',
+  googleSearchConsoleDomain: process.env.NEXT_PUBLIC_GSC_DOMAIN?.trim() || siteUrl,
+};
