@@ -13,7 +13,11 @@ export default async function AdminMonetizationPage() {
 
   const offers = await getMonetizationOffersData();
   const analytics = await getMonetizationAnalyticsData();
-  const summary = summarizeMonetizationRevenue(analytics.length > 0 ? analytics : offers);
+  const summary = summarizeMonetizationRevenue(analytics);
+  const displayClicks = analytics.length > 0 ? summary.totalClicks : offers.reduce((sum, offer) => sum + Number(offer.click_count ?? 0), 0);
+  const displayImpressions = analytics.length > 0 ? summary.totalImpressions : offers.reduce((sum, offer) => sum + Number(offer.impression_count ?? 0), 0);
+  const displayRevenue = displayClicks * 0.15 * 29 * 0.2;
+  const displayRpc = displayClicks > 0 ? displayRevenue / displayClicks : 0;
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -26,9 +30,9 @@ export default async function AdminMonetizationPage() {
       <section className="mt-8 grid gap-4 md:grid-cols-4">
         {[
           ['Offers', offers.length],
-          ['Clicks', summary.totalClicks],
-          ['Impressions', summary.totalImpressions],
-          ['CTR', `${(summary.ctr * 100).toFixed(2)}%`],
+          ['Clicks', displayClicks],
+          ['Impressions', displayImpressions],
+          ['CTR', `${((displayImpressions > 0 ? displayClicks / displayImpressions : 0) * 100).toFixed(2)}%`],
         ].map(([label, value]) => (
           <div key={String(label)} className="rounded-3xl border border-white/10 bg-slate-950/60 p-6 text-white">
             <p className="text-sm text-slate-400">{label}</p>

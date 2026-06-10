@@ -43,6 +43,15 @@ export type MonetizationAnalyticsRow = MonetizationOffer & {
   last_clicked_at: string | null;
 };
 
+export type MonetizationSummary = {
+  totalClicks: number;
+  totalImpressions: number;
+  estimatedRevenue: number;
+  revenuePerClick: number;
+  ctr: number;
+  totalOffers: number;
+};
+
 const fallbackMonetizationOffers: MonetizationOffer[] = [];
 const fallbackMonetizationAnalytics: MonetizationAnalyticsRow[] = [];
 
@@ -87,7 +96,7 @@ export async function getMonetizationAnalyticsData(): Promise<MonetizationAnalyt
   return data as MonetizationAnalyticsRow[];
 }
 
-export function summarizeMonetizationRevenue(rows: MonetizationAnalyticsRow[]) {
+export function summarizeMonetizationRevenue(rows: MonetizationAnalyticsRow[]): MonetizationSummary {
   const totalClicks = rows.reduce((sum, row) => sum + Number(row.total_clicks ?? row.tracked_clicks ?? row.click_count ?? 0), 0);
   const totalImpressions = rows.reduce(
     (sum, row) => sum + Number(row.total_impressions ?? row.tracked_impressions ?? row.impression_count ?? 0),
