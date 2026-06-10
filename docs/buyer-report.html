@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grog — отчёт для потенциального покупателя</title>
+    <meta
+      name="description"
+      content="Адекватный и полный отчёт по сайту Grog для потенциального покупателя: продукт, SEO, монетизация, риски, оценка стоимости и авторство."
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #040816;
+        --panel: rgba(10, 16, 31, 0.86);
+        --line: rgba(148, 163, 184, 0.18);
+        --text: #e5eefb;
+        --muted: #98a8bf;
+        --cyan: #22d3ee;
+        --violet: #8b5cf6;
+        --emerald: #34d399;
+        --amber: #fbbf24;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(34, 211, 238, 0.12), transparent 24%),
+          radial-gradient(circle at top right, rgba(139, 92, 246, 0.12), transparent 22%),
+          linear-gradient(180deg, #040816 0%, #07111f 42%, #040816 100%);
+        line-height: 1.7;
+      }
+      .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 20px 80px; }
+      .hero, .card, table { border: 1px solid var(--line); background: var(--panel); border-radius: 26px; box-shadow: 0 28px 80px rgba(0,0,0,.35); }
+      .hero { padding: 36px; }
+      h1, h2, h3 { margin: 0; line-height: 1.15; }
+      h1 { font-size: clamp(2.4rem, 4.4vw, 4.8rem); font-weight: 900; }
+      .eyebrow { text-transform: uppercase; letter-spacing: .34em; font-size: 12px; color: var(--cyan); font-weight: 700; }
+      .lead, .muted { color: var(--muted); }
+      .grid { display: grid; gap: 18px; }
+      .cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      @media (max-width: 900px) { .cols-2 { grid-template-columns: 1fr; } }
+      .badge { display: inline-flex; margin: 10px 10px 0 0; padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.04); }
+      .section { margin-top: 26px; }
+      .card { padding: 22px; }
+      table { width: 100%; border-collapse: collapse; overflow: hidden; }
+      th, td { padding: 14px 16px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+      th { text-transform: uppercase; letter-spacing: .08em; font-size: 12px; color: #d8e6ff; background: rgba(255,255,255,.03); }
+      tr:last-child td { border-bottom: none; }
+      ul { padding-left: 18px; }
+      li + li { margin-top: 8px; }
+      .callout { border-left: 4px solid var(--cyan); background: rgba(34,211,238,.08); padding: 18px 20px; border-radius: 18px; }
+      .footer { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+      .author-box { display: grid; grid-template-columns: 140px 1fr; gap: 18px; align-items: center; }
+      .avatar-slot { width: 140px; height: 140px; border-radius: 24px; border: 1px dashed var(--line); background: rgba(255,255,255,.03); display: grid; place-items: center; color: var(--muted); text-align: center; padding: 12px; }
+      @media (max-width: 640px) { .author-box { grid-template-columns: 1fr; } .avatar-slot { width: 100%; } }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="hero">
+        <div class="eyebrow">Grog / Buyer report</div>
+        <h1>Отчёт для потенциального покупателя</h1>
+        <p class="lead">
+          Адекватная рыночная оценка проекта Grog с точки зрения продукта, SEO, монетизации,
+          инфраструктуры и готовности к передаче новому владельцу.
+        </p>
+        <div>
+          <span class="badge">Premium AI tools directory</span>
+          <span class="badge">SEO-first</span>
+          <span class="badge">Affiliate / RevShare</span>
+          <span class="badge">Supabase-backed</span>
+          <span class="badge">Production-ready base</span>
+        </div>
+      </section>
+
+      <section class="section grid cols-2">
+        <div class="card">
+          <h2>1. Что продаётся</h2>
+          <ul>
+            <li>Готовый AI tools directory для русскоязычной аудитории.</li>
+            <li>SEO-структура под коммерческие запросы.</li>
+            <li>Серверный click tracking и монетизационный слой.</li>
+            <li>Админка, аналитика, sponsor/advertise слой и prompt-вертикаль.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>2. Почему это ценно</h2>
+          <ul>
+            <li>Выглядит как premium B2B SaaS, а не как каталог ссылок.</li>
+            <li>Есть задел под органический трафик и RevShare.</li>
+            <li>Структура масштабируется контентом без переделки ядра.</li>
+            <li>Подходит для дальнейшего роста в нише AI / marketing tools.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="card">
+          <h2>3. Оценка стоимости</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Сценарий</th>
+                <th>Оценка</th>
+                <th>Комментарий</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sell fast</td>
+                <td>$7,000–$12,000</td>
+                <td>Если нужна быстрая продажа без ожидания метрик.</td>
+              </tr>
+              <tr>
+                <td>Fair market</td>
+                <td>$12,000–$25,000</td>
+                <td>Для покупателя, который видит продуктовую готовность и потенциал SEO.</td>
+              </tr>
+              <tr>
+                <td>Max value</td>
+                <td>$25,000+</td>
+                <td>Если появятся подтверждённые клики, органика и первые доходы.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section grid cols-2">
+        <div class="card">
+          <h2>4. Сильные стороны</h2>
+          <ul>
+            <li>Премиальный UI и доверительный UX.</li>
+            <li>SEO-инфраструктура уже заложена.</li>
+            <li>Понятная модель монетизации через affiliate / RevShare.</li>
+            <li>Наличие admin / analytics foundation.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>5. Риски для покупателя</h2>
+          <ul>
+            <li>Нужна финальная staging-проверка Supabase.</li>
+            <li>Нужно подтвердить сбор кликов и редиректов.</li>
+            <li>Нужен боевой домен и корректные SEO-метаданные.</li>
+            <li>Нужно проверить авторизацию админки и env vars.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="card">
+          <h2>6. Авторство</h2>
+          <div class="author-box" style="margin-top: 16px;">
+            <div class="avatar-slot">Фото автора<br />300×300</div>
+            <div>
+              <p><strong>Автор проекта:</strong> [Ваше имя / псевдоним]</p>
+              <p class="muted">
+                Краткое описание: продукт и архитектура разработаны как premium AI tools directory
+                с фокусом на SEO, монетизацию и коммерческий рост.
+              </p>
+              <p class="muted">Здесь можно вставить фото, ссылки на портфолио и контакты.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="callout">
+          Рекомендация для продажи: показывать этот отчёт вместе с release-status.html и коротким demo-скринкастом.
+          Так покупатель быстрее понимает ценность проекта.
+        </div>
+      </section>
+
+      <p class="footer">© 2026 Grog. Все права защищены. Использование материалов и кода без разрешения правообладателя запрещено.</p>
+    </main>
+  </body>
+</html>

@@ -46,6 +46,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.08),transparent_26%),radial-gradient(circle_at_80%_20%,rgba(139,92,246,0.08),transparent_24%)]" />
         <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 bg-[linear-gradient(180deg,rgba(2,6,23,0)_0%,rgba(2,6,23,0.45)_100%)]" />
         {children}
+        <footer className="border-t border-white/10 bg-slate-950/70 px-4 py-6 text-center text-xs text-slate-500 backdrop-blur">
+          <div className="mx-auto flex max-w-7xl flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <p>© 2026 Grog. Все права защищены.</p>
+            <p>Авторский проект по каталогу AI-инструментов, SEO и RevShare-монетизации.</p>
+          </div>
+        </footer>
       </body>
     </html>
   );
