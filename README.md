@@ -97,6 +97,35 @@ npm install
 npm run dev
 ```
 
+## Recommended deployment for Russia
+
+### Best default: VPS + Docker + Cloudflare + Supabase
+This is the most practical option if payment access to Vercel/other SaaS hosts is difficult.
+
+#### Suggested stack
+- **App host:** Hetzner / Contabo / Selectel / Timeweb Cloud / Yandex Cloud VM
+- **Reverse proxy:** Caddy or Nginx
+- **DNS/CDN:** Cloudflare
+- **Database:** Supabase
+- **Auth:** NextAuth
+
+#### Why this is recommended
+- lower cost than many managed app platforms;
+- no dependency on foreign payment cards;
+- full control over server-side redirects and click tracking;
+- stable SEO and canonical URLs on your own domain;
+- easy to scale the app vertically at first.
+
+#### Minimal production flow
+1. Buy or rent a small VPS.
+2. Install Docker and Docker Compose.
+3. Point the domain to Cloudflare.
+4. Set `NEXT_PUBLIC_SITE_URL` to the production domain.
+5. Configure Supabase env vars.
+6. Build and run the app in Docker.
+7. Verify `/`, `/admin`, `/go/[id]`, `/robots.txt`, `/sitemap.xml`.
+8. Submit sitemap to Google Search Console and Yandex Webmaster.
+
 ## Import data
 ```bash
 npm run import:tools

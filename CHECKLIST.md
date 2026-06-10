@@ -8,6 +8,7 @@ Use this checklist before every deployment.
 - [ ] `npm run build`
 - [ ] No console errors in browser
 - [ ] No runtime errors in server logs
+- [ ] If using Docker, the image builds successfully
 
 ## 2) Environment variables
 - [ ] `NEXT_PUBLIC_SITE_URL` is set to the production domain
@@ -19,6 +20,7 @@ Use this checklist before every deployment.
 - [ ] `GITHUB_ID` is set if GitHub auth is enabled
 - [ ] `GITHUB_SECRET` is set if GitHub auth is enabled
 - [ ] `ADMIN_EMAIL` is set
+- [ ] Cloudflare DNS points the domain to the chosen host
 
 ## 3) Supabase
 - [ ] SQL schema imported successfully
@@ -59,5 +61,7 @@ Use this checklist before every deployment.
 - [ ] Tool pages load correctly
 - [ ] Redirect pages work for real IDs
 - [ ] Search Console sitemap submitted
+- [ ] Yandex Webmaster sitemap submitted
 - [ ] Analytics / click tracking verified
 - [ ] Production rollback plan is documented
+- [ ] Docker restart / deploy procedure is documented

@@ -170,9 +170,16 @@ Use only if you confirm payment and signup availability from your region.
 
 ### Recommendation
 For this project, the safest default is:
-- **Frontend app:** Cloudflare Pages or a small VPS with Docker;
+- **Frontend app:** a small VPS with Docker;
 - **Database:** Supabase;
-- **Auth / analytics / redirects:** inside the Next.js app on the chosen host.
+- **DNS/CDN:** Cloudflare;
+- **Auth / analytics / redirects:** inside the Next.js app on the VPS.
+
+### Practical pick
+If you want the most balanced default, choose:
+- **Selectel / Timeweb Cloud / Yandex Cloud VM** for a simple VM,
+- **Caddy** as reverse proxy,
+- **Cloudflare** for DNS and basic edge caching.
 
 ## 11) Deployment order
 1. Prepare Supabase schema.
