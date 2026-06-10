@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getMonetizationOffersData, summarizeMonetizationRevenue } from '@/lib/monetization';
+import { logMonetizationImpression } from '@/lib/monetization-impressions';
 import { absoluteUrl } from '@/lib/url';
 
 export const metadata: Metadata = {
@@ -41,6 +42,20 @@ export const metadata: Metadata = {
 export default async function SponsorsPage() {
   const offers = await getMonetizationOffersData();
   const summary = summarizeMonetizationRevenue(offers);
+  const topOffers = offers.slice(0, 3);
+  void Promise.all(
+    topOffers.map((offer) =>
+      logMonetizationImpression({
+        offerId: offer.id,
+        country: 'unknown',
+        deviceType: 'desktop',
+        referer: '',
+        utmSource: 'grog',
+        utmMedium: 'organic',
+        utmCampaign: 'sponsors',
+      }),
+    ),
+  );
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">

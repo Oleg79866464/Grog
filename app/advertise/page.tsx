@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { absoluteUrl } from '@/lib/url';
+import { getMonetizationOffersData } from '@/lib/monetization';
+import { logMonetizationImpression } from '@/lib/monetization-impressions';
 
 export const metadata: Metadata = {
   title: 'Разместить рекламу и стать спонсором | Grog',
@@ -36,7 +38,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AdvertisePage() {
+export default async function AdvertisePage() {
+  const offers = await getMonetizationOffersData();
+  const topOffers = offers.slice(0, 2);
+  void Promise.all(
+    topOffers.map((offer) =>
+      logMonetizationImpression({
+        offerId: offer.id,
+        country: 'unknown',
+        deviceType: 'desktop',
+        referer: '',
+        utmSource: 'grog',
+        utmMedium: 'organic',
+        utmCampaign: 'advertise',
+      }),
+    ),
+  );
+
   return (
     <main className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
       <section className="rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-premium backdrop-blur xl:p-12">
