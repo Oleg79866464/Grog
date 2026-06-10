@@ -46,10 +46,22 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.08),transparent_26%),radial-gradient(circle_at_80%_20%,rgba(139,92,246,0.08),transparent_24%)]" />
         <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 bg-[linear-gradient(180deg,rgba(2,6,23,0)_0%,rgba(2,6,23,0.45)_100%)]" />
         {children}
-        <footer className="border-t border-white/10 bg-slate-950/70 px-4 py-6 text-center text-xs text-slate-500 backdrop-blur">
-          <div className="mx-auto flex max-w-7xl flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <p>© 2026 Grog. Все права защищены.</p>
-            <p>Авторский проект по каталогу AI-инструментов, SEO и RevShare-монетизации.</p>
+        <footer className="border-b border-white/10 bg-slate-950/85 px-4 py-3 text-sm text-slate-300 backdrop-blur">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap gap-2">
+              <a href="/" className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 hover:bg-white/10">Главная</a>
+              <a href="/prompts" className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 hover:bg-white/10">Промпты</a>
+              <a href="/sponsors" className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 hover:bg-white/10">Спонсоры</a>
+              <a href="/advertise" className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 hover:bg-white/10">Реклама</a>
+              <a href="/admin" className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 hover:bg-white/10">Админка</a>
+              <a href="/go/1" className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 hover:bg-white/10">Трекинг</a>
+              <a href="/" className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 hover:bg-white/10">О проекте</a>
+            </div>
+            <div className="flex flex-wrap gap-2 text-xs text-slate-500">
+              <span>© 2026 Grog</span>
+              <span>•</span>
+              <span>Premium AI tools directory</span>
+            </div>
           </div>
         </footer>
       </body>
