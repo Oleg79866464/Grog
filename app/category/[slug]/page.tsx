@@ -1,31 +1,48 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { categories, getCategoryBySlug, getToolsByCategory } from '@/lib/catalog';
 import { getToolsData } from '@/lib/data';
 import { absoluteUrl } from '@/lib/url';
 
-export function generateStaticParams() {
-  return categories.map((category) => ({ slug: category.slug }));
-}
-
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const category = getCategoryBySlug(params.slug);
 
   if (!category) {
     return { title: 'Категория не найдена' };
   }
 
+  const title = `${category.title} — лучшие AI-инструменты | Grog`;
+  const description = `Подборка лучших AI-инструментов для ${category.title.toLowerCase()}. Сравнение, use cases, преимущества и переходы к проверенным сервисам.`;
+  const canonical = absoluteUrl(`/category/${category.slug}`);
+
   return {
-    title: `${category.title}`,
-    description: category.description,
+    title,
+    description,
     alternates: {
-      canonical: absoluteUrl(`/category/${category.slug}`),
+      canonical,
       languages: {
-        'ru-RU': absoluteUrl(`/category/${category.slug}`),
+        'ru-RU': canonical,
       },
     },
+    openGraph: {
+      type: 'website',
+      locale: 'ru_RU',
+      url: canonical,
+      siteName: 'Grog',
+      title,
+      description,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   };
+}
+
+export function generateStaticParams() {
+  return categories.map((category) => ({ slug: category.slug }));
 }
 
 export default async function CategoryPage({ params }: { params: { slug: string } }) {
