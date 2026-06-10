@@ -14,7 +14,7 @@ This document is the operational guide for production release, infrastructure se
 2. Import and clean tool data.
 3. Configure environment variables.
 4. Validate typecheck and build.
-5. Deploy to Vercel.
+5. Deploy to the selected host.
 6. Verify redirects, SEO endpoints, and admin access.
 7. Submit sitemap in Search Console.
 
@@ -44,7 +44,7 @@ Run `supabase-schema.sql` in the Supabase SQL editor.
 6. Verify category and pricing normalization.
 
 ## 5) Environment variables
-Set these in Vercel and local `.env`.
+Set these in local `.env` and in the selected hosting platform.
 
 ### Core
 - `NEXT_PUBLIC_SITE_URL`
@@ -206,6 +206,6 @@ For this project, the safest default is:
 Use `CHECKLIST.md` before shipping.
 
 ## 14) Rollback plan
-- Keep the previous Vercel deployment available.
+- Keep the previous production release available.
 - Revert to last working commit if Supabase schema or auth fails.
 - Disable new redirects if tracking errors are detected.

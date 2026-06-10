@@ -107,7 +107,7 @@ npm run import:tools
 2. Apply `supabase-schema.sql` in SQL editor.
 3. Import tool data into `public.tools`.
 4. Confirm RLS policies and triggers are active.
-5. Set environment variables in Vercel / hosting.
+5. Set environment variables in the chosen hosting platform.
 
 ## Production deployment checklist
 - [ ] Set all environment variables
@@ -119,7 +119,7 @@ npm run import:tools
 - [ ] Check NextAuth login for admin email only
 - [ ] Run `npm run build`
 - [ ] Run TypeScript/typecheck in CI
-- [ ] Deploy to Vercel or equivalent
+- [ ] Deploy to the chosen hosting platform
 - [ ] Submit sitemap to Google Search Console and Yandex Webmaster
 - [ ] Test affiliate redirect parameters and click logging
 

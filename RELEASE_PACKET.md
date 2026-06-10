@@ -17,7 +17,7 @@ This is the single starting point for release, deployment, validation, and growt
 3. Import `supabase-schema.sql` into Supabase.
 4. Load `ai-tools-clean.json`.
 5. Run typecheck and build.
-6. Deploy to Vercel.
+6. Deploy to the selected hosting platform.
 7. Verify `/`, `/admin`, `/go/[id]`, `/robots.txt`, `/sitemap.xml`.
 8. Submit sitemap in Search Console.
 

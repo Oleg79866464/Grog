@@ -24,7 +24,7 @@ Status legend:
 
 ### DEPLOYMENT_RUNBOOK.md — OK
 - Good operational structure.
-- Covers Supabase, env vars, SEO, Vercel, Search Console, rollback.
+- Covers Supabase, env vars, SEO, hosting, Search Console, rollback.
 - No code risk.
 
 ### supabase-schema.sql — risky
