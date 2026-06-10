@@ -46,7 +46,7 @@ export default async function HomePage() {
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <section className="rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-premium backdrop-blur xl:p-12">
+      <section className="card-premium card-premium-hover bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.12),transparent_38%),radial-gradient(circle_at_top_right,rgba(139,92,246,0.1),transparent_30%)] p-8 xl:p-12">
         <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">Premium AI tools directory</p>
         <div className="mt-6 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
@@ -67,19 +67,19 @@ export default async function HomePage() {
             </div>
           </div>
           <div className="grid gap-4">
-            <div className="rounded-3xl border border-white/10 bg-slate-950/60 p-5">
+            <div className="card-premium card-premium-hover p-5">
               <p className="text-sm text-slate-400">Оценка дохода</p>
               <p className="mt-2 text-3xl font-black text-white">Revenue-first</p>
               <p className="mt-3 text-sm leading-6 text-slate-300">Клики → трекинг → RevShare → прогноз выручки по формуле CTR × conversion × commission.</p>
             </div>
             <div className="grid gap-4 sm:grid-cols-3">
               {['Trust signals', 'SEO structure', 'Affiliate routing'].map((item) => (
-                <div key={item} className="rounded-3xl border border-white/10 bg-white/5 p-4 text-sm font-medium text-slate-200">
+                <div key={item} className="card-premium card-premium-hover p-4 text-sm font-medium text-slate-200">
                   {item}
                 </div>
               ))}
             </div>
-            <div className="mt-5 rounded-3xl border border-cyan-400/20 bg-cyan-400/10 p-4 text-sm text-cyan-50">
+            <div className="mt-5 rounded-3xl border border-cyan-400/20 bg-gradient-to-r from-cyan-400/10 to-violet-400/10 p-4 text-sm text-cyan-50 shadow-glow">
               Sponsored placement ready: нативный рекламный слот подключается через /sponsors и /advertise без потери SEO.
             </div>
           </div>
@@ -94,7 +94,7 @@ export default async function HomePage() {
         ))}
       </section>
 
-      <section className="mt-10 rounded-[1.75rem] border border-white/10 bg-slate-950/60 p-6 shadow-premium">
+      <section className="mt-10 card-premium card-premium-hover bg-[linear-gradient(180deg,rgba(2,6,23,0.72),rgba(2,6,23,0.95))] p-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">Partner banking offers</p>
@@ -110,7 +110,7 @@ export default async function HomePage() {
             ['Карта / кэшбэк', 'Пакет для банковских продуктов с прозрачным RevShare.'],
             ['B2B financial tools', 'Финансовые сервисы для digital-команд, агентств и фрилансеров.'],
           ].map(([title, description]) => (
-            <article key={title} className="rounded-3xl border border-white/10 bg-white/5 p-5">
+            <article key={title} className="card-premium card-premium-hover p-5">
               <p className="text-white font-semibold">{title}</p>
               <p className="mt-2 text-sm leading-6 text-slate-400">{description}</p>
               <Link href="/advertise" className="mt-4 inline-flex rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-slate-950">
@@ -149,16 +149,16 @@ export default async function HomePage() {
       </section>
 
       <section className="mt-14 grid gap-4 md:grid-cols-2">
-        <Link href="/prompts" className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 hover:bg-white/10">
+        <Link href="/prompts" className="card-premium card-premium-hover p-6">
           <p className="text-sm text-cyan-300">Premium prompts</p>
           <h2 className="mt-3 text-2xl font-bold text-white">Отдельная линия монетизации на промптах</h2>
           <p className="mt-2 text-sm leading-6 text-slate-300">SEO-раздел, категории и карточки для продажи промптов без смешения с каталогом AI tools.</p>
         </Link>
-        <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6">
+        <div className="card-premium card-premium-hover p-6">
           <p className="text-sm text-cyan-300">Prompt categories</p>
           <div className="mt-4 flex flex-wrap gap-2">
             {promptCategories.slice(0, 6).map((category) => (
-              <Link key={category.slug} href={`/prompts/category/${category.slug}`} className="rounded-full border border-white/10 bg-slate-950/70 px-4 py-2 text-sm text-slate-200">
+              <Link key={category.slug} href={`/prompts/category/${category.slug}`} className="rounded-full border border-white/10 bg-slate-950/70 px-4 py-2 text-sm text-slate-200 transition-all duration-300 hover:border-cyan-400/30 hover:bg-white/10">
                 {category.title}
               </Link>
             ))}
@@ -175,7 +175,7 @@ export default async function HomePage() {
         </div>
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {categories.map((category) => (
-            <Link key={category.slug} href={`/category/${category.slug}`} className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 hover:bg-white/10">
+            <Link key={category.slug} href={`/category/${category.slug}`} className="card-premium card-premium-hover p-6">
               <p className="text-sm text-cyan-300">{category.keyword}</p>
               <h3 className="mt-3 text-xl font-bold text-white">{category.title}</h3>
               <p className="mt-2 text-sm leading-6 text-slate-300">{category.description}</p>
@@ -192,7 +192,7 @@ export default async function HomePage() {
         </div>
         <div className="mt-6 grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
           {featuredTools.map((tool) => (
-            <article key={tool.id} className="rounded-[1.75rem] border border-white/10 bg-slate-950/60 p-6 shadow-premium">
+            <article key={tool.id} className="card-premium card-premium-hover p-6">
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">{tool.categoryLabel}</p>
               <h3 className="mt-3 text-2xl font-bold text-white">{tool.name}</h3>
               <p className="mt-3 text-sm leading-6 text-slate-300">{tool.description}</p>

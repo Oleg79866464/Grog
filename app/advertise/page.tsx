@@ -43,7 +43,7 @@ export default async function AdvertisePage() {
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
-      <section className="rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-premium backdrop-blur xl:p-12">
+      <section className="card-premium card-premium-hover bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.16),transparent_28%),radial-gradient(circle_at_top_right,rgba(139,92,246,0.12),transparent_26%)] p-8 xl:p-12">
         <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">Advertising inquiry</p>
         <h1 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-5xl">
           Разместить рекламу, стать спонсором или купить партнёрский пакет.
@@ -58,17 +58,17 @@ export default async function AdvertisePage() {
             ['Премиум placement', 'Спонсорская карточка с аналитикой кликов и показов.'],
             ['Banking offers', 'Финансовые продукты с доверительной подачей и RevShare.'],
           ].map(([title, description]) => (
-            <div key={title} className="rounded-3xl border border-white/10 bg-slate-950/60 p-5">
+            <div key={title} className="card-premium card-premium-hover p-5">
               <p className="text-white font-semibold">{title}</p>
               <p className="mt-2 text-sm leading-6 text-slate-400">{description}</p>
             </div>
           ))}
         </div>
         <div className="mt-8 flex flex-wrap gap-3">
-          <Link href="mailto:ads@example.com" className="rounded-2xl bg-cyan-500 px-5 py-3 font-semibold text-slate-950 shadow-lg shadow-cyan-500/25">
+          <Link href="mailto:ads@example.com" className="rounded-2xl bg-cyan-500 px-5 py-3 font-semibold text-slate-950 shadow-lg shadow-cyan-500/25 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-18px_rgba(34,211,238,0.7)]">
             Написать по рекламе
           </Link>
-          <Link href="/sponsors" className="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 font-semibold text-white">
+          <Link href="/sponsors" className="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 font-semibold text-white transition-all duration-300 hover:border-cyan-400/30 hover:bg-white/10">
             Смотреть пакеты
           </Link>
         </div>

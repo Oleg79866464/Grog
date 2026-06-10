@@ -45,7 +45,7 @@ export default async function SponsorsPage() {
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <section className="rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-premium backdrop-blur xl:p-12">
+      <section className="card-premium card-premium-hover bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.16),transparent_28%),radial-gradient(circle_at_top_right,rgba(139,92,246,0.12),transparent_26%)] p-8 xl:p-12">
         <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">Sponsors & advertising</p>
         <h1 className="mt-4 max-w-4xl text-4xl font-black tracking-tight text-white sm:text-5xl xl:text-6xl">
           Спонсоры, рекламодатели и банковские продукты для премиального размещения.
@@ -74,7 +74,7 @@ export default async function SponsorsPage() {
           ['Показов', summary.totalImpressions],
           ['CTR', `${(summary.ctr * 100).toFixed(2)}%`],
         ].map(([label, value]) => (
-          <div key={String(label)} className="rounded-3xl border border-white/10 bg-slate-950/60 p-6 text-white">
+          <div key={String(label)} className="card-premium card-premium-hover p-6 text-white">
             <p className="text-sm text-slate-400">{label}</p>
             <p className="mt-2 text-3xl font-black">{String(value)}</p>
           </div>
@@ -84,7 +84,7 @@ export default async function SponsorsPage() {
       <section id="packages" className="mt-14 grid gap-4 lg:grid-cols-3">
         {offers.length > 0 ? (
           offers.map((offer) => (
-            <article key={offer.id} className="rounded-[1.75rem] border border-white/10 bg-slate-950/60 p-6 shadow-premium">
+            <article key={offer.id} className="card-premium card-premium-hover p-6">
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">{offer.entity_type}</p>
               <h2 className="mt-3 text-2xl font-bold text-white">{offer.title}</h2>
               <p className="mt-3 text-sm leading-6 text-slate-300">{offer.description}</p>
@@ -106,7 +106,7 @@ export default async function SponsorsPage() {
             </article>
           ))
         ) : (
-          <div className="rounded-[1.75rem] border border-white/10 bg-slate-950/60 p-6 text-slate-300 lg:col-span-3">
+          <div className="card-premium card-premium-hover p-6 text-slate-300 lg:col-span-3">
             Пока нет активных спонсорских офферов. Добавьте их через Supabase или импорт.
           </div>
         )}
