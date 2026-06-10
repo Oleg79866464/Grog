@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import { ManualMonetizationOfferForm } from '@/components/manual-monetization-offer-form';
 import { getMonetizationAnalyticsData, getMonetizationOffersData, summarizeMonetizationRevenue } from '@/lib/monetization';
 
 export default async function AdminMonetizationPage() {
@@ -39,6 +40,12 @@ export default async function AdminMonetizationPage() {
             <p className="mt-2 text-3xl font-black">{String(value)}</p>
           </div>
         ))}
+      </section>
+
+      <section className="mt-8 rounded-[1.75rem] border border-white/10 bg-slate-950/60 p-6">
+        <h2 className="text-2xl font-bold text-white">Manual monetization offer editor</h2>
+        <p className="mt-2 text-sm text-slate-400">Use this form to add sponsors, ads or banking products straight into Supabase.</p>
+        <ManualMonetizationOfferForm endpoint="/api/admin/monetization" />
       </section>
 
       <section className="mt-8 rounded-[1.75rem] border border-white/10 bg-slate-950/60 p-6">
