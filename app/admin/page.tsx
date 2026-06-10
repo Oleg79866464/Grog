@@ -9,6 +9,80 @@ import { ManualAffiliateLinkForm } from '@/components/manual-affiliate-link-form
 import { getPromptsData } from '@/lib/prompts';
 import { getPromptAnalyticsData, summarizePromptRevenue, type PromptAnalyticsRow } from '@/lib/prompts-analytics';
 
+type MetricPair = [label: string, value: string | number];
+
+type TrendPoint = {
+  label: string;
+  clicks: number;
+};
+
+function buildTrendPoints(rows: PromptAnalyticsRow[], fallbackRows: AnalyticsRow[]): TrendPoint[] {
+  const source = rows.length > 0 ? rows : fallbackRows.map((row) => ({
+    ...row,
+    id: row.id,
+    slug: row.slug,
+    title: row.name,
+    category: row.category,
+    price: 0,
+    currency: 'USD' as const,
+    featured: row.featured,
+    file_url: '',
+    preview_text: '',
+    created_at: '',
+    updated_at: '',
+    click_count: row.click_count,
+    tracked_clicks: row.tracked_clicks,
+    total_clicks: row.total_clicks,
+    mobile_clicks: row.mobile_clicks,
+    desktop_clicks: row.desktop_clicks,
+    geo_events: row.geo_events,
+    last_clicked_at: row.last_clicked_at,
+  }));
+
+  return source.slice(0, 7).map((row, index) => ({
+    label: `P${index + 1}`,
+    clicks: Number(row.total_clicks ?? row.tracked_clicks ?? row.click_count ?? 0),
+  }));
+}
+
+function TrendChart({ points }: { points: TrendPoint[] }) {
+  const width = 640;
+  const height = 180;
+  const padding = 20;
+  const maxClicks = Math.max(...points.map((point) => point.clicks), 1);
+  const step = points.length > 1 ? (width - padding * 2) / (points.length - 1) : 0;
+  const linePath = points
+    .map((point, index) => {
+      const x = padding + step * index;
+      const y = height - padding - (point.clicks / maxClicks) * (height - padding * 2);
+      return `${index === 0 ? 'M' : 'L'} ${x} ${y}`;
+    })
+    .join(' ');
+
+  return (
+    <div className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950/80 p-4">
+      <div className="mb-3 flex items-center justify-between text-sm text-slate-400">
+        <span>Clicks trend</span>
+        <span>last {points.length} points</span>
+      </div>
+      <svg viewBox={`0 0 ${width} ${height}`} className="h-44 w-full" role="img" aria-label="Clicks trend chart">
+        <defs>
+          <linearGradient id="trendLine" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#22d3ee" />
+            <stop offset="100%" stopColor="#60a5fa" />
+          </linearGradient>
+        </defs>
+        <path d={linePath} fill="none" stroke="url(#trendLine)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+        {points.map((point, index) => {
+          const x = padding + step * index;
+          const y = height - padding - (point.clicks / maxClicks) * (height - padding * 2);
+          return <circle key={point.label} cx={x} cy={y} r="4" fill="#e2e8f0" />;
+        })}
+      </svg>
+    </div>
+  );
+}
+
 type AnalyticsRow = {
   id: string;
   slug: string;
@@ -70,6 +144,7 @@ export default async function AdminPage() {
   const promptTotal = promptSummary.totalPrompts;
   const promptFeatured = promptSummary.featuredPrompts;
   const promptRevenue = promptSummary.estimatedRevenue;
+  const promptTrendPoints = buildTrendPoints(promptAnalytics, tools);
   const deviceBreakdown = tools.reduce(
     (acc, tool) => ({
       mobile: acc.mobile + Number(tool.mobile_clicks ?? 0),
@@ -85,12 +160,12 @@ export default async function AdminPage() {
         <h1 className="mt-4 text-4xl font-black text-white">Revenue analytics</h1>
         <p className="mt-3 text-sm text-slate-400">Signed in as {session.user?.email}</p>
         <div className="mt-8 grid gap-4 md:grid-cols-4">
-          {[
+          {([
             ['Total clicks', totalClicks],
             ['Total tools', totalTools],
-            ['Estimated revenue', `$${estimatedRevenue.toFixed(2)}`],
-            ['Revenue per click', `$${revenuePerClick.toFixed(2)}`],
-          ].map(([label, value]) => (
+            ['Estimated revenue', `${estimatedRevenue.toFixed(2)}`],
+            ['Revenue per click', `${revenuePerClick.toFixed(2)}`],
+          ] as MetricPair[]).map(([label, value]) => (
             <div key={String(label)} className="rounded-3xl border border-white/10 bg-slate-950/60 p-5">
               <p className="text-sm text-slate-400">{label}</p>
               <p className="mt-2 text-2xl font-black text-white">{String(value)}</p>
@@ -127,6 +202,9 @@ export default async function AdminPage() {
           <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-slate-300">Total prompts: {promptTotal}</div>
           <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-slate-300">Featured prompts: {promptFeatured}</div>
           <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-slate-300">Est. prompt revenue: ${promptRevenue.toFixed(2)}</div>
+        </div>
+        <div className="mt-6">
+          <TrendChart points={promptTrendPoints} />
         </div>
       </section>
 
