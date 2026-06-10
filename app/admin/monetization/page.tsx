@@ -3,7 +3,8 @@ import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { ManualMonetizationOfferForm } from '@/components/manual-monetization-offer-form';
-import { getMonetizationAnalyticsData, getMonetizationOffersData, summarizeMonetizationRevenue } from '@/lib/monetization';
+import { getMonetizationOffersData } from '@/lib/monetization';
+import { getMonetizationAnalyticsData, summarizeMonetizationRevenue } from '@/lib/monetization-analytics';
 
 export default async function AdminMonetizationPage() {
   const session = await getServerSession(authOptions);
