@@ -39,7 +39,7 @@ function normalizeMessages(value: unknown): ChatMessage[] {
 }
 
 export async function POST(request: NextRequest) {
-  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? request.ip ?? 'unknown';
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
   const userAgent = request.headers.get('user-agent');
   const fingerprint = getClientFingerprint(ip, userAgent);
 
