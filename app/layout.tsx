@@ -1,23 +1,25 @@
 import type { Metadata } from 'next';
+import { siteUrl } from '@/lib/config';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://groggrowth.example'),
+  metadataBase: new URL(siteUrl),
   title: {
     default: 'Grog — premium AI tools directory',
     template: '%s | Grog',
   },
   description: 'Премиальный каталог AI-инструментов для маркетинга, SMM, SEO, контента и growth-команд.',
   alternates: {
-    canonical: '/',
+    canonical: siteUrl,
     languages: {
-      'ru-RU': '/',
+      'ru-RU': siteUrl,
+      ru: siteUrl,
     },
   },
   openGraph: {
     type: 'website',
     locale: 'ru_RU',
-    url: '/',
+    url: siteUrl,
     siteName: 'Grog',
     title: 'Grog — premium AI tools directory',
     description: 'Премиальный каталог AI-инструментов для маркетинга, SMM, SEO, контента и growth-команд.',

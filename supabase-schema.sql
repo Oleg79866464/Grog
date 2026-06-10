@@ -91,7 +91,8 @@ select
   coalesce(sum(case when c.clicked_at is not null then 1 else 0 end), 0) as total_clicks,
   count(*) filter (where c.device_type = 'mobile') as mobile_clicks,
   count(*) filter (where c.device_type = 'desktop') as desktop_clicks,
-  count(*) filter (where c.country is not null) as geo_events
+  count(*) filter (where c.country is not null) as geo_events,
+  max(c.clicked_at) as last_clicked_at
 from public.tools t
 left join public.clicks c on c.tool_id = t.id
 group by t.id;

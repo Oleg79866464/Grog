@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getRelatedTools, getToolBySlug, tools } from '@/lib/catalog';
+import { getRelatedTools, getToolBySlug } from '@/lib/catalog';
+import { getToolsData } from '@/lib/data';
+import { absoluteUrl } from '@/lib/url';
 
-export function generateStaticParams() {
-  return tools.map((tool) => ({ slug: tool.slug }));
+export async function generateStaticParams() {
+  return (await getToolsData()).map((tool) => ({ slug: tool.slug }));
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
@@ -16,7 +18,12 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   return {
     title: tool.name,
     description: tool.description,
-    alternates: { canonical: `/tool/${tool.slug}` },
+    alternates: {
+      canonical: absoluteUrl(`/tool/${tool.slug}`),
+      languages: {
+        'ru-RU': absoluteUrl(`/tool/${tool.slug}`),
+      },
+    },
   };
 }
 

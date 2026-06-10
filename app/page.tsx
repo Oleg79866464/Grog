@@ -1,8 +1,10 @@
 import Link from 'next/link';
-import { categories, getFeaturedTools, tools } from '@/lib/catalog';
+import { categories } from '@/lib/catalog';
+import { getToolsData } from '@/lib/data';
 
-export default function HomePage() {
-  const featuredTools = getFeaturedTools();
+export default async function HomePage() {
+  const tools = await getToolsData();
+  const featuredTools = tools.filter((tool) => tool.featured).slice(0, 6);
   const commercialCopy = [
     'Каталог заточен под RU-коммерческие запросы и отбор инструментов, которые реально конвертируют трафик в клики и выручку.',
     'Серверный redirect слой скрывает affiliate URL, повышает доверие и позволяет вести аналитику по стране, устройству и источнику.',

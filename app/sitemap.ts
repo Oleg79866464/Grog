@@ -1,7 +1,10 @@
-import { categories, tools } from '@/lib/catalog';
+import { categories } from '@/lib/catalog';
+import { getToolsData } from '@/lib/data';
+import { siteUrl } from '@/lib/config';
 
-export default function sitemap() {
-  const baseUrl = 'https://groggrowth.example';
+export default async function sitemap() {
+  const tools = await getToolsData();
+  const baseUrl = siteUrl;
 
   return [
     { url: `${baseUrl}/`, lastModified: new Date() },

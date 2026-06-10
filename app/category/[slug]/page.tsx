@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { categories, getCategoryBySlug, getToolsByCategory } from '@/lib/catalog';
+import { categories, getCategoryBySlug } from '@/lib/catalog';
+import { getToolsData } from '@/lib/data';
+import { absoluteUrl } from '@/lib/url';
 
 export function generateStaticParams() {
   return categories.map((category) => ({ slug: category.slug }));
@@ -16,16 +18,21 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   return {
     title: `${category.title}`,
     description: category.description,
-    alternates: { canonical: `/category/${category.slug}` },
+    alternates: {
+      canonical: absoluteUrl(`/category/${category.slug}`),
+      languages: {
+        'ru-RU': absoluteUrl(`/category/${category.slug}`),
+      },
+    },
   };
 }
 
-export default function CategoryPage({ params }: { params: { slug: string } }) {
+export default async function CategoryPage({ params }: { params: { slug: string } }) {
   const category = getCategoryBySlug(params.slug);
 
   if (!category) return null;
 
-  const categoryTools = getToolsByCategory(category.slug);
+  const categoryTools = (await getToolsData()).filter((tool) => tool.category === category.slug);
   const itemList = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
