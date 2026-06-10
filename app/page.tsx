@@ -5,6 +5,7 @@ import { categories } from '@/lib/catalog';
 import { getSiteControls } from '@/lib/site-controls';
 import { getToolsData } from '@/lib/data';
 import { absoluteUrl } from '@/lib/url';
+import { promptCategories } from '@/lib/prompts-catalog';
 
 export const metadata: Metadata = {
   title: 'Grog — премиальный каталог AI-инструментов для маркетинга, SEO и контента',
@@ -115,6 +116,24 @@ export default async function HomePage() {
             {item}
           </div>
         ))}
+      </section>
+
+      <section className="mt-14 grid gap-4 md:grid-cols-2">
+        <Link href="/prompts" className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 hover:bg-white/10">
+          <p className="text-sm text-cyan-300">Premium prompts</p>
+          <h2 className="mt-3 text-2xl font-bold text-white">Отдельная линия монетизации на промптах</h2>
+          <p className="mt-2 text-sm leading-6 text-slate-300">SEO-раздел, категории и карточки для продажи промптов без смешения с каталогом AI tools.</p>
+        </Link>
+        <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6">
+          <p className="text-sm text-cyan-300">Prompt categories</p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {promptCategories.slice(0, 6).map((category) => (
+              <Link key={category.slug} href={`/prompts/category/${category.slug}`} className="rounded-full border border-white/10 bg-slate-950/70 px-4 py-2 text-sm text-slate-200">
+                {category.title}
+              </Link>
+            ))}
+          </div>
+        </div>
       </section>
 
       <section id="categories" className="mt-14">

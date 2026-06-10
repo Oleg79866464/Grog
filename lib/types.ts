@@ -41,3 +41,30 @@ export type Category = {
   description: string;
   keyword: string;
 };
+
+export type PromptCategorySlug =
+  | 'marketing'
+  | 'seo'
+  | 'copywriting'
+  | 'smm'
+  | 'business'
+  | 'product'
+  | 'growth'
+  | 'design';
+
+export type Prompt = {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  category: PromptCategorySlug;
+  categoryLabel: string;
+  tags: string[];
+  price: number;
+  currency: 'USD' | 'RUB';
+  featured: boolean;
+  file_url: string;
+  preview_text: string;
+  created_at: string;
+  updated_at: string;
+};

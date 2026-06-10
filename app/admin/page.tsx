@@ -6,6 +6,8 @@ import { siteUrl } from '@/lib/config';
 import { getSiteControls } from '@/lib/site-controls';
 import { createSupabaseServerClient } from '@/lib/supabase-server';
 import { ManualAffiliateLinkForm } from '@/components/manual-affiliate-link-form';
+import { getPromptsData } from '@/lib/prompts';
+import { getPromptAnalyticsData, summarizePromptRevenue, type PromptAnalyticsRow } from '@/lib/prompts-analytics';
 
 type AnalyticsRow = {
   id: string;
@@ -42,6 +44,32 @@ export default async function AdminPage() {
   const revenuePerClick = totalClicks > 0 ? estimatedRevenue / totalClicks : 0;
 
   const topTools = tools.slice(0, 5);
+  const prompts = await getPromptsData();
+  const promptAnalytics = await getPromptAnalyticsData();
+  const fallbackPromptAnalytics: PromptAnalyticsRow[] = prompts.map((prompt) => ({
+    id: prompt.id,
+    slug: prompt.slug,
+    title: prompt.title,
+    category: prompt.category,
+    price: prompt.price,
+    currency: prompt.currency,
+    featured: prompt.featured,
+    file_url: prompt.file_url,
+    preview_text: prompt.preview_text,
+    created_at: prompt.created_at,
+    updated_at: prompt.updated_at,
+    click_count: 0,
+    tracked_clicks: 0,
+    total_clicks: 0,
+    mobile_clicks: 0,
+    desktop_clicks: 0,
+    geo_events: 0,
+    last_clicked_at: null,
+  }));
+  const promptSummary = summarizePromptRevenue(promptAnalytics.length > 0 ? promptAnalytics : fallbackPromptAnalytics);
+  const promptTotal = promptSummary.totalPrompts;
+  const promptFeatured = promptSummary.featuredPrompts;
+  const promptRevenue = promptSummary.estimatedRevenue;
   const deviceBreakdown = tools.reduce(
     (acc, tool) => ({
       mobile: acc.mobile + Number(tool.mobile_clicks ?? 0),
@@ -94,6 +122,15 @@ export default async function AdminPage() {
       </section>
 
       <section className="mt-8 rounded-[1.75rem] border border-white/10 bg-slate-950/60 p-6">
+        <h2 className="text-2xl font-bold text-white">Prompts analytics</h2>
+        <div className="mt-4 grid gap-4 md:grid-cols-3">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-slate-300">Total prompts: {promptTotal}</div>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-slate-300">Featured prompts: {promptFeatured}</div>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-slate-300">Est. prompt revenue: ${promptRevenue.toFixed(2)}</div>
+        </div>
+      </section>
+
+      <section className="mt-8 rounded-[1.75rem] border border-white/10 bg-slate-950/60 p-6">
         <h2 className="text-2xl font-bold text-white">Security controls</h2>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-slate-300">
@@ -109,6 +146,9 @@ export default async function AdminPage() {
           </Link>
           <Link href="/import" className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white">
             Import flow
+          </Link>
+          <Link href="/admin/prompts" className="rounded-2xl border border-cyan-400/30 bg-cyan-400/10 px-4 py-3 text-sm font-semibold text-cyan-100">
+            Prompts analytics
           </Link>
         </div>
       </section>
