@@ -61,7 +61,7 @@ export default async function HomePage() {
         ))}
       </section>
 
-      <section className="mt-14 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+      <section id="assistant" className="mt-14 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
         <AiAssistant enabled />
         <div className="rounded-[2rem] border border-white/10 bg-slate-950/60 p-6 shadow-premium">
           <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">Site controls</p>

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
@@ -30,7 +31,7 @@ export default async function AdminPage() {
     redirect('/api/auth/signin');
   }
 
-  const siteControls = getSiteControls();
+  const siteControls = await getSiteControls();
   const supabase = createSupabaseServerClient();
   const analyticsQuery = supabase ? await supabase.from('tools_analytics').select('*').order('tracked_clicks', { ascending: false }) : { data: null, error: null };
   const tools = (analyticsQuery.data ?? []) as AnalyticsRow[];
@@ -100,6 +101,14 @@ export default async function AdminPage() {
           <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-slate-300">
             AI model: llama-3.3-70b-versatile
           </div>
+        </div>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link href="/#assistant" className="rounded-2xl bg-cyan-400 px-4 py-3 text-sm font-semibold text-slate-950">
+            Open AI assistant
+          </Link>
+          <Link href="/import" className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white">
+            Import flow
+          </Link>
         </div>
       </section>
     </main>
