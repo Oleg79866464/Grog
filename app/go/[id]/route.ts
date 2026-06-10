@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToolBySlug } from '@/lib/catalog';
 import { getToolsData } from '@/lib/data';
+import { isRateLimited, getRateLimitRetryAfterSeconds } from '@/lib/rate-limit';
 import { createSupabaseServerClient } from '@/lib/supabase-server';
 
 export const runtime = 'nodejs';
@@ -11,6 +12,18 @@ function getDeviceType(userAgent: string | null) {
 }
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+  const ipKey = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? request.ip ?? 'unknown';
+
+  if (isRateLimited(`go:${ipKey}`)) {
+    return NextResponse.json(
+      { error: 'Too many requests' },
+      {
+        status: 429,
+        headers: { 'Retry-After': String(getRateLimitRetryAfterSeconds(`go:${ipKey}`)) },
+      },
+    );
+  }
+
   const tools = await getToolsData();
   const tool = tools.find((item) => item.id === params.id) ?? getToolBySlug(params.id);
 
