@@ -21,6 +21,14 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: `${prompt.title} | Grog`,
     description: prompt.description,
+    keywords: [
+      prompt.title,
+      prompt.categoryLabel,
+      'промпт',
+      'AI промпт',
+      'промпты для маркетинга',
+      'промпты для бизнеса',
+    ],
     alternates: {
       canonical,
       languages: {

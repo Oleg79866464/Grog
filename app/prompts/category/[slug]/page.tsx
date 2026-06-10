@@ -21,6 +21,14 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: category.seoTitle,
     description: category.seoDescription,
+    keywords: [
+      category.keyword,
+      category.title,
+      'промпты',
+      'AI промпты',
+      'каталог промптов',
+      'лучшие промпты',
+    ],
     alternates: {
       canonical,
       languages: {
