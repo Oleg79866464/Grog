@@ -102,6 +102,8 @@ npm run dev
 ### Best default: VPS + Docker + Cloudflare + Supabase
 This is the most practical option if payment access to Vercel/other SaaS hosts is difficult.
 
+See also: [`PRODUCTION_LAUNCH_RUNBOOK.md`](./PRODUCTION_LAUNCH_RUNBOOK.md)
+
 #### Suggested stack
 - **App host:** Hetzner / Contabo / Selectel / Timeweb Cloud / Yandex Cloud VM
 - **Reverse proxy:** Caddy or Nginx
