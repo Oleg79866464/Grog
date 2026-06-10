@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { categories, getCategoryBySlug } from '@/lib/catalog';
 import { getToolsData } from '@/lib/data';
@@ -30,7 +31,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 export default async function CategoryPage({ params }: { params: { slug: string } }) {
   const category = getCategoryBySlug(params.slug);
 
-  if (!category) return null;
+  if (!category) notFound();
 
   const categoryTools = (await getToolsData()).filter((tool) => tool.category === category.slug);
   const itemList = {

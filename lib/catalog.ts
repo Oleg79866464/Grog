@@ -54,7 +54,9 @@ const categoryMap: Record<string, Category> = {
 
 export const categories = Object.values(categoryMap);
 
-export const tools = (rawTools as Array<Record<string, string | boolean | number | string[]>>).map((tool, index) => {
+type RawTool = Record<string, string | boolean | number | string[] | undefined>;
+
+export const tools = (rawTools as RawTool[]).map((tool, index) => {
   const category = (tool.category as keyof typeof categoryMap) || 'business';
   const now = new Date('2026-01-01T00:00:00.000Z').toISOString();
 

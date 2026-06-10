@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getRelatedTools, getToolBySlug } from '@/lib/catalog';
 import { getToolsData } from '@/lib/data';
@@ -30,7 +31,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 export default function ToolPage({ params }: { params: { slug: string } }) {
   const tool = getToolBySlug(params.slug);
 
-  if (!tool) return null;
+  if (!tool) notFound();
 
   const relatedTools = getRelatedTools(tool.slug, tool.category);
   const jsonLd = {

@@ -30,7 +30,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
   const referer = request.headers.get('referer') || '';
 
   if (supabase) {
-    await supabase.from('clicks').insert({
+    const { error } = await supabase.from('clicks').insert({
       tool_id: tool.id,
       slug: tool.slug,
       country,
@@ -41,6 +41,10 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
       utm_campaign: utmCampaign,
       ip: request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? null,
     });
+
+    if (error) {
+      console.error('Failed to log click', error.message);
+    }
   }
 
   const response = NextResponse.redirect(url, 302);

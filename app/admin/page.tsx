@@ -4,6 +4,24 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { siteUrl } from '@/lib/config';
 import { createSupabaseServerClient } from '@/lib/supabase-server';
 
+type AnalyticsRow = {
+  id: string;
+  slug: string;
+  name: string;
+  category: string;
+  pricing: string;
+  commission_rate: number;
+  featured: boolean;
+  verified: boolean;
+  click_count: number;
+  tracked_clicks: number;
+  total_clicks: number;
+  mobile_clicks: number;
+  desktop_clicks: number;
+  geo_events: number;
+  last_clicked_at: string | null;
+};
+
 export default async function AdminPage() {
   const session = await getServerSession(authOptions);
 
@@ -12,8 +30,8 @@ export default async function AdminPage() {
   }
 
   const supabase = createSupabaseServerClient();
-  const analytics = supabase ? await supabase.from('tools_analytics').select('*').order('tracked_clicks', { ascending: false }) : { data: null };
-  const tools = analytics.data ?? [];
+  const analyticsQuery = supabase ? await supabase.from('tools_analytics').select('*').order('tracked_clicks', { ascending: false }) : { data: null, error: null };
+  const tools = (analyticsQuery.data ?? []) as AnalyticsRow[];
   const totalClicks = tools.reduce((sum, tool) => sum + Number(tool.total_clicks ?? tool.tracked_clicks ?? tool.click_count ?? 0), 0);
   const totalTools = tools.length;
   const estimatedRevenue = totalClicks * 0.15 * 29 * 0.2;

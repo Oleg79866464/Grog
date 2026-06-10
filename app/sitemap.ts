@@ -9,6 +9,9 @@ export default async function sitemap() {
   return [
     { url: `${baseUrl}/`, lastModified: new Date() },
     ...categories.map((category) => ({ url: `${baseUrl}/category/${category.slug}`, lastModified: new Date() })),
-    ...tools.map((tool) => ({ url: `${baseUrl}/tool/${tool.slug}`, lastModified: new Date(tool.updated_at) })),
+    ...tools.map((tool) => ({
+      url: `${baseUrl}/tool/${tool.slug}`,
+      lastModified: Number.isNaN(Date.parse(tool.updated_at)) ? new Date() : new Date(tool.updated_at),
+    })),
   ];
 }
