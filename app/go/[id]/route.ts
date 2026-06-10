@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToolBySlug } from '@/lib/catalog';
 import { getToolsData } from '@/lib/data';
+import { getClientFingerprint, isSuspiciousUserAgent } from '@/lib/abuse';
+import { createChallengeToken } from '@/lib/challenge-store';
 import { isRateLimited, getRateLimitRetryAfterSeconds } from '@/lib/rate-limit';
 import { createSupabaseServerClient } from '@/lib/supabase-server';
 
@@ -12,15 +14,15 @@ function getDeviceType(userAgent: string | null) {
 }
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-  const ipKey = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? request.ip ?? 'unknown';
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? request.ip ?? 'unknown';
+  const userAgent = request.headers.get('user-agent');
+  const fingerprint = getClientFingerprint(ip, userAgent);
 
-  if (isRateLimited(`go:${ipKey}`)) {
+  if (isRateLimited(`go:${fingerprint}`) || isSuspiciousUserAgent(userAgent)) {
+    const token = createChallengeToken(fingerprint);
     return NextResponse.json(
-      { error: 'Too many requests' },
-      {
-        status: 429,
-        headers: { 'Retry-After': String(getRateLimitRetryAfterSeconds(`go:${ipKey}`)) },
-      },
+      { error: 'challenge_required', challengeToken: token, challengeUrl: '/challenge' },
+      { status: 429, headers: { 'Retry-After': String(getRateLimitRetryAfterSeconds(`go:${fingerprint}`)) } },
     );
   }
 

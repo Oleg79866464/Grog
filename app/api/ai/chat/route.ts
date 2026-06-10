@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { isRateLimited, getRateLimitRetryAfterSeconds } from '@/lib/rate-limit';
+import { getClientFingerprint, isSuspiciousUserAgent } from '@/lib/abuse';
+import { createChallengeToken } from '@/lib/challenge-store';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -36,6 +39,18 @@ function normalizeMessages(value: unknown): ChatMessage[] {
 }
 
 export async function POST(request: NextRequest) {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? request.ip ?? 'unknown';
+  const userAgent = request.headers.get('user-agent');
+  const fingerprint = getClientFingerprint(ip, userAgent);
+
+  if (isRateLimited(`ai:${fingerprint}`) || isSuspiciousUserAgent(userAgent)) {
+    const token = createChallengeToken(fingerprint);
+    return NextResponse.json(
+      { error: 'challenge_required', challengeToken: token, challengeUrl: '/challenge' },
+      { status: 429, headers: { 'Retry-After': String(getRateLimitRetryAfterSeconds(`ai:${fingerprint}`)) } },
+    );
+  }
+
   const body = (await request.json().catch(() => null)) as { messages?: unknown } | null;
   const messages = normalizeMessages(body?.messages);
   const safeMessages = [{ role: 'system', content: buildSystemPrompt() } satisfies ChatMessage, ...messages];

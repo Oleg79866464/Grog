@@ -41,7 +41,11 @@ export function AiAssistant({ enabled = true }: Props) {
         body: JSON.stringify({ messages: apiMessages.concat({ role: 'user', content: input.trim() }) }),
       });
 
-      const data = (await response.json()) as { reply?: string };
+      const data = (await response.json()) as { reply?: string; error?: string; challengeUrl?: string };
+      if (data.error === 'challenge_required') {
+        setMessages((current) => [...current, { role: 'assistant', content: `Нужна быстрая проверка. Откройте ${data.challengeUrl ?? '/challenge'} и попробуйте снова.` }]);
+        return;
+      }
       setMessages((current) => [...current, { role: 'assistant', content: data.reply || 'Не удалось получить ответ.' }]);
     } catch {
       setMessages((current) => [...current, { role: 'assistant', content: 'Сейчас AI-ассистент недоступен. Попробуйте ещё раз.' }]);

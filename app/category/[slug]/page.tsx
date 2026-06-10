@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { categories, getCategoryBySlug } from '@/lib/catalog';
+import { categories, getCategoryBySlug, getToolsByCategory } from '@/lib/catalog';
 import { getToolsData } from '@/lib/data';
 import { absoluteUrl } from '@/lib/url';
 
@@ -33,7 +33,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
 
   if (!category) notFound();
 
-  const categoryTools = (await getToolsData()).filter((tool) => tool.category === category.slug);
+  const categoryTools = getToolsByCategory(category.slug, await getToolsData());
   const itemList = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',

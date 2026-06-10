@@ -1,5 +1,4 @@
 import type { Category, Tool } from './types';
-import rawTools from '../ai-tools-clean.json';
 
 const categoryMap: Record<string, Category> = {
   marketing: {
@@ -54,37 +53,7 @@ const categoryMap: Record<string, Category> = {
 
 export const categories = Object.values(categoryMap);
 
-type RawTool = Record<string, string | boolean | number | string[] | undefined>;
-
-export const tools = (rawTools as RawTool[]).map((tool, index) => {
-  const category = (tool.category as keyof typeof categoryMap) || 'business';
-  const now = new Date('2026-01-01T00:00:00.000Z').toISOString();
-
-  return {
-    id: String(tool.id ?? `tool-${index + 1}`),
-    slug: String(tool.slug ?? `tool-${index + 1}`),
-    name: String(tool.name ?? 'AI Tool'),
-    description: String(tool.description ?? ''),
-    url: String(tool.url ?? tool.affiliate_url ?? '#'),
-    affiliate_url: String(tool.affiliate_url ?? tool.url ?? '#'),
-    category,
-    categoryLabel: categoryMap[category]?.title ?? 'AI инструменты',
-    pricing: String(tool.pricing ?? 'Freemium'),
-    tags: Array.isArray(tool.tags) ? tool.tags.map(String) : [],
-    commission_rate: Number(tool.commission_rate ?? 0.15),
-    featured: Boolean(tool.featured ?? index < 6),
-    verified: Boolean(tool.verified ?? true),
-    use_cases: Array.isArray(tool.use_cases) ? tool.use_cases.map(String) : [],
-    benefits: Array.isArray(tool.benefits) ? tool.benefits.map(String) : [],
-    country: String(tool.country ?? 'Global'),
-    device_type: String(tool.device_type ?? 'Web'),
-    click_count: Number(tool.click_count ?? 0),
-    created_at: String(tool.created_at ?? now),
-    updated_at: String(tool.updated_at ?? now),
-  } as Tool;
-});
-
-export function getToolBySlug(slug: string) {
+export function getToolBySlug(slug: string, tools: Tool[]) {
   return tools.find((tool) => tool.slug === slug);
 }
 
@@ -92,14 +61,14 @@ export function getCategoryBySlug(slug: string) {
   return categories.find((category) => category.slug === slug);
 }
 
-export function getToolsByCategory(slug: string) {
+export function getToolsByCategory(slug: string, tools: Tool[]) {
   return tools.filter((tool) => tool.category === slug);
 }
 
-export function getFeaturedTools() {
+export function getFeaturedTools(tools: Tool[]) {
   return tools.filter((tool) => tool.featured).slice(0, 6);
 }
 
-export function getRelatedTools(currentSlug: string, categorySlug: string) {
+export function getRelatedTools(currentSlug: string, categorySlug: string, tools: Tool[]) {
   return tools.filter((tool) => tool.slug !== currentSlug && tool.category === categorySlug).slice(0, 4);
 }

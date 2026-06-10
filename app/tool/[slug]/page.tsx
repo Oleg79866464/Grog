@@ -9,8 +9,9 @@ export async function generateStaticParams() {
   return (await getToolsData()).map((tool) => ({ slug: tool.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const tool = getToolBySlug(params.slug);
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const tools = await getToolsData();
+  const tool = getToolBySlug(params.slug, tools);
 
   if (!tool) {
     return { title: 'Инструмент не найден' };
@@ -28,12 +29,13 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
-export default function ToolPage({ params }: { params: { slug: string } }) {
-  const tool = getToolBySlug(params.slug);
+export default async function ToolPage({ params }: { params: { slug: string } }) {
+  const tools = await getToolsData();
+  const tool = getToolBySlug(params.slug, tools);
 
   if (!tool) notFound();
 
-  const relatedTools = getRelatedTools(tool.slug, tool.category);
+  const relatedTools = getRelatedTools(tool.slug, tool.category, tools);
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
