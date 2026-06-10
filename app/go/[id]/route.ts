@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getToolBySlug } from '@/lib/catalog';
-import { getToolsData } from '@/lib/data';
+import { getToolDataBySlug, getToolsData } from '@/lib/data';
 import { getClientFingerprint, isSuspiciousUserAgent } from '@/lib/abuse';
 import { createChallengeToken } from '@/lib/challenge-store';
 import { isRateLimited, getRateLimitRetryAfterSeconds } from '@/lib/rate-limit';
@@ -14,7 +13,7 @@ function getDeviceType(userAgent: string | null) {
 }
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? request.ip ?? 'unknown';
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
   const userAgent = request.headers.get('user-agent');
   const fingerprint = getClientFingerprint(ip, userAgent);
 
@@ -26,8 +25,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
     );
   }
 
-  const tools = await getToolsData();
-  const tool = tools.find((item) => item.id === params.id) ?? getToolBySlug(params.id);
+  const tool = (await getToolDataBySlug(params.id)) ?? (await getToolsData()).find((item) => item.id === params.id) ?? null;
 
   if (!tool) {
     return NextResponse.json({ error: 'Tool not found' }, { status: 404 });
