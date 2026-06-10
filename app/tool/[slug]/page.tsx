@@ -18,13 +18,26 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 
   return {
-    title: tool.name,
-    description: tool.description,
+    title: `${tool.name} — AI-сервис для ${tool.categoryLabel} | Grog`,
+    description: `${tool.name} помогает решать задачи в категории ${tool.categoryLabel}. Цена, преимущества, use cases и переход на официальный сайт через безопасный tracking.`,
     alternates: {
       canonical: absoluteUrl(`/tool/${tool.slug}`),
       languages: {
         'ru-RU': absoluteUrl(`/tool/${tool.slug}`),
       },
+    },
+    openGraph: {
+      type: 'website',
+      locale: 'ru_RU',
+      url: absoluteUrl(`/tool/${tool.slug}`),
+      siteName: 'Grog',
+      title: `${tool.name} — AI-сервис для ${tool.categoryLabel}`,
+      description: `${tool.name} для ${tool.categoryLabel}: возможности, pricing, use cases и переход через affiliate tracking.`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${tool.name} — AI-сервис для ${tool.categoryLabel}`,
+      description: `${tool.name} для ${tool.categoryLabel}: возможности, pricing, use cases и переход через affiliate tracking.`,
     },
   };
 }

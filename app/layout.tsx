@@ -14,15 +14,14 @@ const securityHeaders = [
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Grog — premium AI tools directory',
+    default: 'Grog — премиальный каталог AI-инструментов',
     template: '%s | Grog',
   },
-  description: 'Премиальный каталог AI-инструментов для маркетинга, SMM, SEO, контента и growth-команд.',
+  description: 'Премиальный каталог AI-инструментов для маркетинга, SMM, SEO, контента и growth-команд с server-side tracking и affiliate-first UX.',
   alternates: {
     canonical: siteUrl,
     languages: {
       'ru-RU': siteUrl,
-      ru: siteUrl,
     },
   },
   openGraph: {
@@ -30,13 +29,13 @@ export const metadata: Metadata = {
     locale: 'ru_RU',
     url: siteUrl,
     siteName: 'Grog',
-    title: 'Grog — premium AI tools directory',
-    description: 'Премиальный каталог AI-инструментов для маркетинга, SMM, SEO, контента и growth-команд.',
+    title: 'Grog — премиальный каталог AI-инструментов',
+    description: 'Премиальный каталог AI-инструментов для маркетинга, SMM, SEO, контента и growth-команд с server-side tracking и affiliate-first UX.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Grog — premium AI tools directory',
-    description: 'Премиальный каталог AI-инструментов для маркетинга, SMM, SEO, контента и growth-команд.',
+    title: 'Grog — премиальный каталог AI-инструментов',
+    description: 'Премиальный каталог AI-инструментов для маркетинга, SMM, SEO, контента и growth-команд с server-side tracking и affiliate-first UX.',
   },
 };
 

@@ -1,8 +1,37 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { AiAssistant } from '@/components/ai-assistant';
 import { categories } from '@/lib/catalog';
 import { getSiteControls } from '@/lib/site-controls';
 import { getToolsData } from '@/lib/data';
+import { absoluteUrl } from '@/lib/url';
+
+export const metadata: Metadata = {
+  title: 'Grog — премиальный каталог AI-инструментов для маркетинга, SEO и контента',
+  description:
+    'Лучшие нейросети и AI-сервисы для маркетологов, SMM, SEO, копирайтинга и digital-команд. Премиальный каталог с обзорами, рейтингами и переходами через трекинг.',
+  alternates: {
+    canonical: absoluteUrl('/'),
+    languages: {
+      'ru-RU': absoluteUrl('/'),
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'ru_RU',
+    url: absoluteUrl('/'),
+    siteName: 'Grog',
+    title: 'Grog — premium AI tools directory',
+    description:
+      'Премиальный каталог AI-инструментов для маркетинга, SEO, контента и SMM с server-side tracking и affiliate-first UX.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Grog — premium AI tools directory',
+    description:
+      'Премиальный каталог AI-инструментов для маркетинга, SEO, контента и SMM с server-side tracking и affiliate-first UX.',
+  },
+};
 
 export default async function HomePage() {
   const tools = await getToolsData();
