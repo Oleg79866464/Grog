@@ -102,23 +102,28 @@ group by o.id;
 alter table public.monetization_offers enable row level security;
 alter table public.monetization_events enable row level security;
 
-create policy if not exists "public read monetization offers"
+drop policy if exists "public read monetization offers" on public.monetization_offers;
+drop policy if exists "service role manage monetization offers" on public.monetization_offers;
+drop policy if exists "service role insert monetization events" on public.monetization_events;
+drop policy if exists "service role read monetization events" on public.monetization_events;
+
+create policy "public read monetization offers"
   on public.monetization_offers
   for select
   using (status = 'active');
 
-create policy if not exists "service role manage monetization offers"
+create policy "service role manage monetization offers"
   on public.monetization_offers
   for all
   using (auth.role() = 'service_role')
   with check (auth.role() = 'service_role');
 
-create policy if not exists "service role insert monetization events"
+create policy "service role insert monetization events"
   on public.monetization_events
   for insert
   with check (auth.role() = 'service_role');
 
-create policy if not exists "service role read monetization events"
+create policy "service role read monetization events"
   on public.monetization_events
   for select
   using (auth.role() = 'service_role');
