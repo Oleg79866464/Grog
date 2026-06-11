@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 
 type Props = {
   endpoint: string;
@@ -10,7 +10,7 @@ export function ManualAffiliateLinkForm({ endpoint }: Props) {
   const [status, setStatus] = useState<string>('');
   const [loading, setLoading] = useState(false);
 
-  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true);
     setStatus('');

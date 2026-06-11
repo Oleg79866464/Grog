@@ -18,7 +18,6 @@ type TrendPoint = {
 
 function buildTrendPoints(rows: PromptAnalyticsRow[], fallbackRows: AnalyticsRow[]): TrendPoint[] {
   const source = rows.length > 0 ? rows : fallbackRows.map((row) => ({
-    ...row,
     id: row.id,
     slug: row.slug,
     title: row.name,
@@ -158,7 +157,7 @@ export default async function AdminPage() {
       <section className="rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-premium">
         <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">Admin dashboard</p>
         <h1 className="mt-4 text-4xl font-black text-white">Revenue analytics</h1>
-        <p className="mt-3 text-sm text-slate-400">Signed in as {session.user?.email}</p>
+        <p className="mt-3 text-sm text-slate-400">Signed in as {session.user?.email ?? 'admin'}</p>
         <div className="mt-8 grid gap-4 md:grid-cols-4">
           {([
             ['Total clicks', totalClicks],
