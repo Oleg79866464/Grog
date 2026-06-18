@@ -1,0 +1,72 @@
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+import { ManualMonetizationOfferForm } from '@/components/manual-monetization-offer-form';
+import { getMonetizationOffersData } from '@/lib/monetization';
+import { getMonetizationAnalyticsData, summarizeMonetizationRevenue } from '@/lib/monetization-analytics';
+
+export default async function AdminMonetizationPage() {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    redirect('/api/auth/signin');
+  }
+
+  const offers = await getMonetizationOffersData();
+  const analytics = await getMonetizationAnalyticsData();
+  const summary = summarizeMonetizationRevenue(analytics);
+  const displayClicks = analytics.length > 0 ? summary.totalClicks : offers.reduce((sum, offer) => sum + Number(offer.click_count ?? 0), 0);
+  const displayImpressions = analytics.length > 0 ? summary.totalImpressions : offers.reduce((sum, offer) => sum + Number(offer.impression_count ?? 0), 0);
+  const displayRevenue = displayClicks * 0.15 * 29 * 0.2;
+  const displayRpc = displayClicks > 0 ? displayRevenue / displayClicks : 0;
+
+  return (
+    <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <section className="card-premium card-premium-hover p-8">
+        <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">Admin / monetization</p>
+        <h1 className="mt-4 text-4xl font-black text-white">Спонсоры, реклама и банковские офферы</h1>
+        <p className="mt-3 text-sm text-slate-400">Signed in as {session.user?.email}</p>
+      </section>
+
+      <section className="mt-8 grid gap-4 md:grid-cols-4">
+        {[
+          ['Offers', offers.length],
+          ['Clicks', displayClicks],
+          ['Impressions', displayImpressions],
+          ['CTR', `${((displayImpressions > 0 ? displayClicks / displayImpressions : 0) * 100).toFixed(2)}%`],
+        ].map(([label, value]) => (
+          <div key={String(label)} className="card-premium card-premium-hover p-6 text-white">
+            <p className="text-sm text-slate-400">{label}</p>
+            <p className="mt-2 text-3xl font-black">{String(value)}</p>
+          </div>
+        ))}
+      </section>
+
+      <section className="mt-8 card-premium card-premium-hover p-6">
+        <h2 className="text-2xl font-bold text-white">Manual monetization offer editor</h2>
+        <p className="mt-2 text-sm text-slate-400">Use this form to add sponsors, ads or banking products straight into Supabase.</p>
+        <ManualMonetizationOfferForm endpoint="/api/admin/monetization" />
+      </section>
+
+      <section className="mt-8 card-premium card-premium-hover p-6">
+        <h2 className="text-2xl font-bold text-white">Latest offers</h2>
+        <div className="mt-4 space-y-3">
+          {offers.slice(0, 10).map((offer) => (
+            <div key={offer.id} className="card-premium card-premium-hover p-4 text-slate-300">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p className="font-semibold text-white">{offer.title}</p>
+                  <p className="text-sm text-slate-400">{offer.entity_type} · {offer.placement} · {offer.pricing}</p>
+                </div>
+                <Link href={`/go/${offer.id}`} className="rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-slate-950 transition-all duration-300 hover:-translate-y-0.5">
+                  Open
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}

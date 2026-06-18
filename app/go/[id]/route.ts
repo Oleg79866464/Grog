@@ -1,0 +1,69 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { getToolDataBySlug, getToolsData } from '@/lib/data';
+import { getClientFingerprint, isSuspiciousUserAgent } from '@/lib/abuse';
+import { createChallengeToken } from '@/lib/challenge-store';
+import { isRateLimited, getRateLimitRetryAfterSeconds } from '@/lib/rate-limit';
+import { createSupabaseServerClient } from '@/lib/supabase-server';
+
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
+function getDeviceType(userAgent: string | null) {
+  return userAgent?.includes('Mobile') ? 'mobile' : 'desktop';
+}
+
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const userAgent = request.headers.get('user-agent');
+  const fingerprint = getClientFingerprint(ip, userAgent);
+
+  if (isRateLimited(`go:${fingerprint}`) || isSuspiciousUserAgent(userAgent)) {
+    const token = createChallengeToken(fingerprint);
+    return NextResponse.json(
+      { error: 'challenge_required', challengeToken: token, challengeUrl: '/challenge' },
+      { status: 429, headers: { 'Retry-After': String(getRateLimitRetryAfterSeconds(`go:${fingerprint}`)) } },
+    );
+  }
+
+  const tool = (await getToolDataBySlug(params.id)) ?? (await getToolsData()).find((item) => item.id === params.id) ?? null;
+
+  if (!tool) {
+    return NextResponse.json({ error: 'Tool not found' }, { status: 404 });
+  }
+
+  const url = new URL(tool.affiliate_url || tool.url);
+  const utmSource = request.nextUrl.searchParams.get('utm_source') || 'grog';
+  const utmMedium = request.nextUrl.searchParams.get('utm_medium') || 'affiliate';
+  const utmCampaign = request.nextUrl.searchParams.get('utm_campaign') || tool.slug;
+
+  url.searchParams.set('utm_source', utmSource);
+  url.searchParams.set('utm_medium', utmMedium);
+  url.searchParams.set('utm_campaign', utmCampaign);
+
+  const supabase = createSupabaseServerClient();
+  const country = request.headers.get('x-vercel-ip-country') || 'unknown';
+  const deviceType = getDeviceType(request.headers.get('user-agent'));
+  const referer = request.headers.get('referer') || '';
+
+  if (supabase) {
+    const { error } = await supabase.from('clicks').insert({
+      tool_id: tool.id,
+      slug: tool.slug,
+      country,
+      device_type: deviceType,
+      referer,
+      utm_source: utmSource,
+      utm_medium: utmMedium,
+      utm_campaign: utmCampaign,
+      ip: request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? null,
+    });
+
+    if (error) {
+      console.error('Failed to log click', error.message);
+    }
+  }
+
+  const response = NextResponse.redirect(url, 302);
+  response.headers.set('Cache-Control', 'no-store');
+  return response;
+}

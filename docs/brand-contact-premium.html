@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grog — контакты, соцсети и каналы</title>
+    <meta
+      name="description"
+      content="Премиальный HTML-шаблон контактов и соцсетей проекта Grog: Telegram, Instagram, WhatsApp, TikTok, MAX, YouTube, Rutube, VK и другие каналы по теме AI."
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #030712;
+        --surface: rgba(8, 15, 30, 0.84);
+        --surface-2: rgba(7, 12, 24, 0.96);
+        --text: #e5eefb;
+        --muted: #95a4bd;
+        --line: rgba(148, 163, 184, 0.16);
+        --cyan: #22d3ee;
+        --violet: #8b5cf6;
+        --emerald: #34d399;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at 12% 8%, rgba(34, 211, 238, 0.12), transparent 24%),
+          radial-gradient(circle at 88% 12%, rgba(139, 92, 246, 0.14), transparent 22%),
+          linear-gradient(180deg, #030712 0%, #07111f 42%, #030712 100%);
+        line-height: 1.7;
+      }
+      .page { max-width: 1180px; margin: 0 auto; padding: 36px 20px 84px; }
+      .hero, .card { border: 1px solid var(--line); border-radius: 30px; background: var(--surface); box-shadow: 0 30px 90px rgba(0,0,0,.42); }
+      .hero { padding: 42px; position: relative; overflow: hidden; }
+      .hero::after { content: ""; position: absolute; inset: auto -6% -55% auto; width: 360px; height: 360px; background: radial-gradient(circle, rgba(34, 211, 238, 0.18), transparent 68%); pointer-events: none; filter: blur(8px); }
+      .eyebrow { text-transform: uppercase; letter-spacing: .34em; font-size: 12px; color: var(--cyan); font-weight: 700; }
+      h1, h2, h3 { margin: 0; line-height: 1.12; }
+      h1 { margin-top: 16px; font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 900; letter-spacing: -0.04em; }
+      .lead, .muted { color: var(--muted); }
+      .grid { display: grid; gap: 18px; }
+      .cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      @media (max-width: 900px) { .cols-2, .cols-3 { grid-template-columns: 1fr; } .hero { padding: 28px; } }
+      .section { margin-top: 26px; }
+      .card { padding: 24px; background: linear-gradient(180deg, rgba(15, 23, 42, 0.86), rgba(7, 12, 24, 0.96)); }
+      .chip-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+      .chip { display: inline-flex; padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.04); font-size: 14px; }
+      .social-list { display: grid; gap: 12px; margin-top: 18px; }
+      .social-item {
+        display: flex; align-items: center; justify-content: space-between; gap: 16px;
+        padding: 16px 18px; border-radius: 20px; border: 1px solid var(--line);
+        background: rgba(255,255,255,.04); text-decoration: none; color: var(--text);
+        transition: transform .25s ease, border-color .25s ease, background .25s ease;
+      }
+      .social-item:hover { transform: translateY(-1px); border-color: rgba(34, 211, 238, 0.34); background: rgba(255,255,255,.06); }
+      .social-item strong { display: block; font-size: 1rem; }
+      .social-item span { color: var(--muted); font-size: .92rem; }
+      .social-item em { font-style: normal; color: #c7e9ff; font-size: .88rem; }
+      .callout { border-left: 4px solid var(--cyan); background: rgba(34,211,238,.08); padding: 18px 20px; border-radius: 18px; }
+      .footer { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+      .avatar-slot { width: 140px; height: 140px; border-radius: 24px; border: 1px dashed var(--line); background: rgba(255,255,255,.03); display: grid; place-items: center; color: var(--muted); text-align: center; padding: 12px; }
+      .author-box { display: grid; grid-template-columns: 160px 1fr; gap: 18px; align-items: center; }
+      @media (max-width: 640px) { .author-box { grid-template-columns: 1fr; } .avatar-slot { width: 100%; } }
+      table { width: 100%; border-collapse: collapse; border: 1px solid var(--line); border-radius: 24px; overflow: hidden; background: var(--surface-2); }
+      th, td { padding: 14px 16px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+      th { background: rgba(255,255,255,.03); text-transform: uppercase; letter-spacing: .08em; font-size: 12px; color: #d7e5ff; }
+      tr:last-child td { border-bottom: none; }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <div class="eyebrow">Grog / Premium contacts</div>
+        <h1>Контакты, соцсети и AI-каналы</h1>
+        <p class="lead">
+          Премиальный шаблон для сайта и бренда: контакты, мессенджеры, соцсети и видеоканалы по теме AI.
+          Формат можно использовать как отдельную страницу, вставку в футер или презентационный блок.
+        </p>
+        <div class="chip-row">
+          <span class="chip">Telegram</span>
+          <span class="chip">Instagram</span>
+          <span class="chip">WhatsApp</span>
+          <span class="chip">TikTok</span>
+          <span class="chip">MAX</span>
+          <span class="chip">YouTube</span>
+          <span class="chip">Rutube</span>
+          <span class="chip">VK</span>
+          <span class="chip">Dzen</span>
+          <span class="chip">Boosty</span>
+        </div>
+      </section>
+
+      <section class="section grid cols-2">
+        <div class="card">
+          <h2>1. Контактные каналы</h2>
+          <div class="social-list">
+            <a class="social-item" href="https://t.me/your_username" target="_blank" rel="noreferrer">
+              <div><strong>Telegram</strong><span>@your_username</span></div><em>Быстрые сообщения и сделки</em>
+            </a>
+            <a class="social-item" href="https://wa.me/70000000000" target="_blank" rel="noreferrer">
+              <div><strong>WhatsApp</strong><span>+7 (000) 000-00-00</span></div><em>Оперативная связь</em>
+            </a>
+            <a class="social-item" href="https://www.instagram.com/your_username/" target="_blank" rel="noreferrer">
+              <div><strong>Instagram</strong><span>@your_username</span></div><em>Бренд и визуальные обновления</em>
+            </a>
+            <a class="social-item" href="https://www.tiktok.com/@your_username" target="_blank" rel="noreferrer">
+              <div><strong>TikTok</strong><span>@your_username</span></div><em>Короткие AI-ролики и охваты</em>
+            </a>
+            <a class="social-item" href="https://max.ru/your_username" target="_blank" rel="noreferrer">
+              <div><strong>MAX</strong><span>max.ru/your_username</span></div><em>Альтернативный мессенджер</em>
+            </a>
+          </div>
+        </div>
+        <div class="card">
+          <h2>2. Авторство и портфолио</h2>
+          <div class="author-box" style="margin-top: 16px;">
+            <div class="avatar-slot">Фото автора<br />300×300</div>
+            <div>
+              <p><strong>Автор проекта:</strong> [Ваше имя / псевдоним]</p>
+              <p class="muted">Краткое описание: premium AI tools directory, SEO-структура, RevShare-монетизация, B2B-позиционирование.</p>
+              <p class="muted">Ссылки на портфолио, кейсы и медиа можно добавить сюда без изменения визуального стиля.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="card">
+          <h2>3. Метрики и аналитика</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Сервис</th>
+                <th>Статус</th>
+                <th>Комментарий</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Google Analytics 4</td>
+                <td>Плейсхолдер `G-XXXXXXXXXX`</td>
+                <td>Добавляется после регистрации в GA4</td>
+              </tr>
+              <tr>
+                <td>Google Search Console</td>
+                <td>Проверка домена</td>
+                <td>Sitemap, canonical и индексирование</td>
+              </tr>
+              <tr>
+                <td>Yandex Metrica</td>
+                <td>Плейсхолдер `XXXXXXXX`</td>
+                <td>Вебвизор, цели, события, формы</td>
+              </tr>
+              <tr>
+                <td>Яндекс Вебмастер</td>
+                <td>Подключение домена</td>
+                <td>Контроль индексации и региональности</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="card">
+          <h2>4. Видеохостинги и каналы по AI</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Платформа</th>
+                <th>Зачем</th>
+                <th>Ссылка</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>YouTube</td>
+                <td>Лучшие обзоры, туториалы и длинные видео по AI.</td>
+                <td><a href="https://www.youtube.com/" target="_blank" rel="noreferrer">youtube.com</a></td>
+              </tr>
+              <tr>
+                <td>Rutube</td>
+                <td>Русскоязычный видеоконтент и локальная аудитория.</td>
+                <td><a href="https://rutube.ru/" target="_blank" rel="noreferrer">rutube.ru</a></td>
+              </tr>
+              <tr>
+                <td>VK Видео</td>
+                <td>Площадка для русскоязычных клипов и подборок.</td>
+                <td><a href="https://vk.com/video" target="_blank" rel="noreferrer">vk.com/video</a></td>
+              </tr>
+              <tr>
+                <td>Dzen</td>
+                <td>Статьи и видео для массового русскоязычного трафика.</td>
+                <td><a href="https://dzen.ru/" target="_blank" rel="noreferrer">dzen.ru</a></td>
+              </tr>
+              <tr>
+                <td>Odysee</td>
+                <td>Альтернативный видеохостинг для длинных материалов.</td>
+                <td><a href="https://odysee.com/" target="_blank" rel="noreferrer">odysee.com</a></td>
+              </tr>
+              <tr>
+                <td>Vimeo</td>
+                <td>Премиальная подача видео-контента и портфолио.</td>
+                <td><a href="https://vimeo.com/" target="_blank" rel="noreferrer">vimeo.com</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section grid cols-2">
+        <div class="card">
+          <h2>4. Дополнительные соцсети</h2>
+          <div class="social-list">
+            <a class="social-item" href="https://vk.com/" target="_blank" rel="noreferrer">
+              <div><strong>VK</strong><span>Вкладываем канал и сообщество</span></div><em>Соцсеть и видео</em>
+            </a>
+            <a class="social-item" href="https://www.youtube.com/" target="_blank" rel="noreferrer">
+              <div><strong>YouTube</strong><span>Основной видеоканал по AI</span></div><em>Главный long-form контент</em>
+            </a>
+            <a class="social-item" href="https://rutube.ru/" target="_blank" rel="noreferrer">
+              <div><strong>Rutube</strong><span>Русскоязычные подборки и кейсы</span></div><em>Локальный охват</em>
+            </a>
+            <a class="social-item" href="https://dzen.ru/" target="_blank" rel="noreferrer">
+              <div><strong>Dzen</strong><span>Статьи, лонгриды и видео</span></div><em>Органический трафик</em>
+            </a>
+          </div>
+        </div>
+        <div class="card">
+          <h2>5. Рекомендация по заполнению</h2>
+          <ul>
+            <li>Замените `your_username` на реальные ссылки.</li>
+            <li>Добавьте только те каналы, которые реально ведутся.</li>
+            <li>Для покупателя укажите прямые контакты и рабочие аккаунты.</li>
+            <li>Не перегружайте страницу лишними платформами без активности.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="callout" style="border-left: 4px solid var(--emerald); background: rgba(52,211,153,.08); padding: 18px 20px; border-radius: 18px;">
+          Этот шаблон можно использовать как отдельный HTML-артефакт, как страницу контактов или как премиальный блок для покупателя и партнёров.
+        </div>
+      </section>
+
+      <p class="footer">© 2026 Grog. Все права защищены. Авторский контент и брендовые материалы защищены законом.</p>
+    </main>
+  </body>
+</html>
